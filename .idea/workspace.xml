@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Change word frequency to appearances in bio frequency">
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/Y_and_preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/nonzero_Y_and_preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/father_2prevalence_1e-05lambda_augment" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2RWmQdwDT3Op20nfP6nZXL6pK6f" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "preferences.fileTypes"
+  }
+}]]></component>
+  <component name="RunManager" selected="Python.evaluation">
+    <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.evaluation" />
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="" />
+      <created>1687374196227</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687374196227</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Upload the files again - Had to remake the repo since Git was acting up">
+      <created>1687374456326</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1687374456326</updated>
+    </task>
+    <task id="LOCAL-00002" summary="File saving fixes">
+      <created>1687375290890</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1687375290890</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add nsfw, add features to main.py and evaluation.py">
+      <created>1687397063271</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1687397063271</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add augmented option">
+      <created>1687405202601</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687405202601</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Removed all results since they might have older versions of the code">
+      <created>1687405251155</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687405251155</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added a relevant data file to each Result with the accuracies and the threshold">
+      <created>1687406814965</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687406814965</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add a gitignore">
+      <created>1687451037740</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1687451037740</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Modify git ignore">
+      <created>1687451330061</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1687451330061</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add onesaccuracy template">
+      <created>1687461342932</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1687461342932</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Change word frequency to appearances in bio frequency">
+      <created>1687462721976</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1687462721976</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Upload the files again - Had to remake the repo since Git was acting up" />
+    <MESSAGE value="File saving fixes" />
+    <MESSAGE value="Add nsfw, add features to main.py and evaluation.py" />
+    <MESSAGE value="Add augmented option" />
+    <MESSAGE value="Removed all results since they might have older versions of the code" />
+    <MESSAGE value="Added a relevant data file to each Result with the accuracies and the threshold" />
+    <MESSAGE value="Add a gitignore" />
+    <MESSAGE value="Modify git ignore" />
+    <MESSAGE value="Add onesaccuracy template" />
+    <MESSAGE value="Change word frequency to appearances in bio frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change word frequency to appearances in bio frequency" />
+  </component>
+</project>

@@ -1,0 +1,8 @@
+# Default ignored files
+/.idea/shelf/
+/workspace.xml
+
+# Don't push anything with personal bio data
+/Datasets
+**/nonzero_Y_and_preds
+**/Y_and_preds
