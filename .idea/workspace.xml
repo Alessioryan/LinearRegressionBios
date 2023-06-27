@@ -4,40 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/mom_husband__augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw_porn__augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dad_mom__augment" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nsfw__augment_onesaccuracy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/W" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/Y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/preds" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/relevant_data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/token_lookup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/W" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/Y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/preds" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/token_lookup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05_lambda" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05lambda" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/dad_3prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/father_2prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/father_5prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/father_5prevalence_1e-05lambda_augment_onesaccuracy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/mom_1prevalence" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/mom_3prevalence" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/nsfw_1prevalence" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/nsfw_3prevalence" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/nsfw_3prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Weights/the_2prevalence_1e-05lambda_augment" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Binary choice task">
+      <change afterPath="$PROJECT_DIR$/Results/mom_husband_1prevalence_1e-05lambda_augment/relevant_data" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687536752116</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Binary choice task">
+      <created>1687830641640</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1687830641640</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -289,6 +264,7 @@
     <MESSAGE value="Change word frequency to appearances in bio frequency" />
     <MESSAGE value="Update the gitignore file" />
     <MESSAGE value="Update the git ignore file, now everything works :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update the git ignore file, now everything works :)" />
+    <MESSAGE value="Binary choice task" />
+    <option name="LAST_COMMIT_MESSAGE" value="Binary choice task" />
   </component>
 </project>
