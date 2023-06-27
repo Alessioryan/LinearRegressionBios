@@ -18,7 +18,7 @@ def tokenize(bio):
 def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence=False):
     raw_vocabulary = defaultdict(int)
     for bio in bios:
-        for token in set(tokenize(bio) ):
+        for token in set(tokenize(bio)):
             raw_vocabulary[token] += 1
 
     # We don't want to look at our keywords in the vocabulary
@@ -43,7 +43,7 @@ def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_preval
 def fill_values(keyword, second_keyword, train_test_bios, X, Y):
     # Fill with the values
     for index, bio in enumerate(train_test_bios):
-        for token in set(tokenize(bio) ):
+        for token in set(tokenize(bio)):
             if token == keyword:
                 Y[index] = 1
             elif second_keyword and token == second_keyword:
@@ -54,14 +54,14 @@ def fill_values(keyword, second_keyword, train_test_bios, X, Y):
     if second_keyword:
         assert np.all(Y != 0)
     # Add the bias
-    for index in range(len(X) ):
+    for index in range(len(X)):
         X[index, -1] = 1
     return X, Y
 
 
 # Creates a prediction matrix
 def predict(keyword, second_keyword, W, X, Y, augment_predictions):
-    predictions = np.zeros(shape=(Y.shape[0], ) )
+    predictions = np.zeros(shape=(Y.shape[0],))
     # Set the default value to -1 if there's a second word
     if second_keyword:
         predictions -= 1
@@ -70,7 +70,7 @@ def predict(keyword, second_keyword, W, X, Y, augment_predictions):
     raw_scores = np.matmul(W.T, X.T)
     if augment_predictions:
         # TODO this is DEFINITELY not the best way to calculate this, I'm sinning to the ML gods, but it works for now
-        expected_num_winners = int(expected_percent * len(Y) )
+        expected_num_winners = int(expected_percent * len(Y))
         top_indices = np.argsort(raw_scores)[-expected_num_winners:]
         threshold = raw_scores[top_indices[1]]
         print(f'The threshold for being selected is a score of {threshold}')
@@ -97,7 +97,8 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
     return accuracy
 
 
-def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, save_results=True):
+def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword, lambda_value,
+         minimum_appearances_prevalence, save_results=True):
     # TODO fix this later
     # Define global variables
     global bios
@@ -105,16 +106,21 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
     global expected_percent
 
     # Get the data
-    bios = pd.read_csv(file_path)['bio']
+    data_frame = pd.read_csv(file_path, header=None)
+    column_names = ['user_id_str', 'bio', 'location', 'name', 'screen_name', 'protected',
+                    'verified', 'followers_count', 'friends_count', 'statuses_count', 'created_at',
+                    'default_profile', 'us_day_YYYY_MM_DD', 'timestamp_ms']
+    data_frame.columns = column_names
+    bios = data_frame['bio']
 
     # If there is a second keyword, filter the data preemptively
     if second_keyword:
         keyword_regex = rf"\b{keyword}\b"
         second_keyword_regex = rf"\b{second_keyword}\b"
-        contains_first = (bios.str.contains(keyword_regex, regex=True) )
-        contains_second = (bios.str.contains(second_keyword_regex, regex=True) )
+        contains_first = (bios.str.contains(keyword_regex, regex=True))
+        contains_second = (bios.str.contains(second_keyword_regex, regex=True))
         contains_both = (bios.str.contains(keyword_regex, regex=True)
-                         & bios.str.contains(second_keyword_regex, regex=True) )
+                         & bios.str.contains(second_keyword_regex, regex=True))
         contains_first_or_second = (contains_first | contains_second) & ~contains_both
         print(f'{np.mean(contains_first)} contain {keyword}, {np.mean(contains_second)} contain {second_keyword}')
         print(f'{np.mean(contains_both)} contain both, giving {np.mean(contains_first_or_second)} containing only one')
@@ -122,7 +128,7 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
 
     # Construct a vocabulary
     is_prevalence = True
-    vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence) )
+    vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence))
     ordered_vocabulary = {}
     token_lookup = {}
     for index, token in enumerate(vocabulary):
@@ -135,8 +141,8 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
 
     # Create empty X with bias, create empty Y
     # X is the length of the vocabulary (without keywords) + 1 for the bias
-    X = np.zeros((train_bios.shape[0], len(vocabulary) ) )
-    Y = np.zeros((train_bios.shape[0], ) )
+    X = np.zeros((train_bios.shape[0], len(vocabulary)))
+    Y = np.zeros((train_bios.shape[0],))
 
     # Fill X and Y with values
     X, Y = fill_values(keyword, second_keyword, train_bios, X, Y)
@@ -157,7 +163,7 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
 
     # Calculate W
     print('\nCalculating W...')
-    W = np.linalg.solve(np.matmul(X.T, X) + lambda_I, np.matmul(X.T, Y) )
+    W = np.linalg.solve(np.matmul(X.T, X) + lambda_I, np.matmul(X.T, Y))
     if save_results:
         np.savetxt(f'Weights/{file_identifier}', W, delimiter=',', fmt='%f')
 
@@ -200,7 +206,8 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
         Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/Y_and_preds')
 
         # Save the non-zero ones separately
-        nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
+        nonzero_Y_preds_raw_bios = Y_preds_raw_bios[
+            (Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
         nonzero_Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/nonzero_Y_and_preds')
 
         # Save other relevant data
@@ -214,17 +221,17 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
 
 
 if __name__ == '__main__':
-    keyword = 'mom'
+    keyword = 'man'
     augment_predictions = True
     ones_accuracy = False  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = 'husband'
+    second_keyword = 'woman'
     lambda_value = 1e-05
     minimum_appearances_prevalence = 1
 
-    main('Datasets/sampled_one_bio_per_year_2022.csv',
+    main('~/Desktop/DCD_project/one_bio_per_year_data/one_bio_per_year_2022.csv',
          keyword=keyword,
          augment_predictions=augment_predictions,
          ones_accuracy=ones_accuracy,
          second_keyword=second_keyword,
          lambda_value=lambda_value,
-         minimum_appearances_prevalence=minimum_appearances_prevalence,)
+         minimum_appearances_prevalence=minimum_appearances_prevalence)
