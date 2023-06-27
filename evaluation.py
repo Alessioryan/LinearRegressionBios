@@ -57,7 +57,7 @@ def main():
 if __name__ == '__main__':
     # TODO fix this later
     global file_identifier
-    file_identifier = 'mom_husband_1prevalence_1e-05lambda_augment'
+    file_identifier = 'nsfw_porn_1prevalence_1e-05lambda_augment'
 
     # TODO make it so that you can search the weight for a specific word compared to the average
 

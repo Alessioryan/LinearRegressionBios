@@ -7,10 +7,10 @@ import json
 def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
                         lower_appear, upper_appear, steps_appear):
     # Define parameters
-    keyword = 'mom'
+    keyword = 'nsfw'
     augment_predictions = True
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = 'husband'
+    second_keyword = 'onlyfans'
 
     # Define the accuracy lists and other necessary lists
     lambdas = np.logspace(np.log10(lower_lambda), np.log10(upper_lambda), steps_lambda)
