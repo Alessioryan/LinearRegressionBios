@@ -1,6 +1,7 @@
 import json
 import numpy as np
 
+
 # Returns the top n weights
 def find_top_n_weights(token_lookup, W, n, reverse):
     sorted_indices = np.argsort(W)
@@ -56,7 +57,7 @@ def main():
 if __name__ == '__main__':
     # TODO fix this later
     global file_identifier
-    file_identifier = 'father_2prevalence_1e-05lambda_augment'
+    file_identifier = 'mom_husband_1prevalence_1e-05lambda_augment'
 
     # TODO make it so that you can search the weight for a specific word compared to the average
 

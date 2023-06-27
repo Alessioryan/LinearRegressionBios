@@ -4,20 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Change word frequency to appearances in bio frequency">
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/Y_and_preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/nonzero_Y_and_preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/father_2prevalence_1e-05lambda_augment/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/father_2prevalence_1e-05lambda_augment" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/mom_husband__augment_onesaccuracy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw_porn__augment_onesaccuracy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dad_mom__augment" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nsfw__augment_onesaccuracy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/W" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/Y" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/preds" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/relevant_data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment/token_lookup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/W" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/Y" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/preds" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/father_5prevalence_1e-05lambda_augment_onesaccuracy/token_lookup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05_lambda" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05lambda" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/dad_1prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/dad_3prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/father_2prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/father_5prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/father_5prevalence_1e-05lambda_augment_onesaccuracy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/mom_1prevalence" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/mom_3prevalence" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/nsfw_1prevalence" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/nsfw_3prevalence" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/nsfw_3prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/the_2prevalence_1e-05lambda_augment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,15 +65,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "preferences.fileTypes"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.evaluation">
     <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LinearRegressionBios" />
@@ -56,6 +93,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="hyperparameter_testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hyperparameter_testing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -89,6 +147,7 @@
       <list>
         <item itemvalue="Python.evaluation" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.hyperparameter_testing" />
       </list>
     </recent_temporary>
   </component>
@@ -174,7 +233,35 @@
       <option name="project" value="LOCAL" />
       <updated>1687462721976</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update the gitignore file">
+      <created>1687536339541</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1687536339541</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update the gitignore file">
+      <created>1687536357727</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1687536357727</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update the gitignore file">
+      <created>1687536579604</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1687536579604</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Update the git ignore file, now everything works :)">
+      <created>1687536752116</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1687536752116</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,6 +287,8 @@
     <MESSAGE value="Modify git ignore" />
     <MESSAGE value="Add onesaccuracy template" />
     <MESSAGE value="Change word frequency to appearances in bio frequency" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change word frequency to appearances in bio frequency" />
+    <MESSAGE value="Update the gitignore file" />
+    <MESSAGE value="Update the git ignore file, now everything works :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the git ignore file, now everything works :)" />
   </component>
 </project>

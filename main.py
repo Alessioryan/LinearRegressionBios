@@ -15,12 +15,16 @@ def tokenize(bio):
 
 
 # Construct a vocabulary. A token is in the vocabulary if it appears in at least n bios
-def construct_vocabulary(minimum_appearances, is_prevalence=False):
+def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence=False):
     raw_vocabulary = defaultdict(int)
     for bio in bios:
         for token in set(tokenize(bio) ):
-            if token != keyword:
-                raw_vocabulary[token] += 1
+            raw_vocabulary[token] += 1
+
+    # We don't want to look at our keywords in the vocabulary
+    del raw_vocabulary[keyword]
+    if second_keyword:
+        del raw_vocabulary[second_keyword]
 
     # Remove any token that appears less than the minimum_appearances threshold
     vocabulary = defaultdict(int)
@@ -36,15 +40,19 @@ def construct_vocabulary(minimum_appearances, is_prevalence=False):
 
 
 # Given the X and the Y and the token of interest, fill in X and Y
-def fill_values(train_test_bios, X, Y):
+def fill_values(keyword, second_keyword, train_test_bios, X, Y):
     # Fill with the values
     for index, bio in enumerate(train_test_bios):
         for token in set(tokenize(bio) ):
             if token == keyword:
                 Y[index] = 1
-            elif token in ordered_vocabulary.keys(): # TODO Allow for OOV options
+            elif second_keyword and token == second_keyword:
+                Y[index] = -1
+            elif token in ordered_vocabulary.keys():  # TODO Allow for OOV options
                 X[index, ordered_vocabulary[token]] += 1
-
+    # Sanity check for two keywords
+    if second_keyword:
+        assert np.all(Y != 0)
     # Add the bias
     for index in range(len(X) ):
         X[index, -1] = 1
@@ -52,22 +60,27 @@ def fill_values(train_test_bios, X, Y):
 
 
 # Creates a prediction matrix
-def predict(W, X, Y):
-    predictions = np.zeros((Y.shape[0], ) )
+def predict(keyword, second_keyword, W, X, Y, augment_predictions):
+    predictions = np.zeros(shape=(Y.shape[0], ) )
+    # Set the default value to -1 if there's a second word
+    if second_keyword:
+        predictions -= 1
+
+    # Calculate the raw score
+    raw_scores = np.matmul(W.T, X.T)
     if augment_predictions:
         # TODO this is DEFINITELY not the best way to calculate this, I'm sinning to the ML gods, but it works for now
         expected_num_winners = int(expected_percent * len(Y) )
-        raw_scores = np.matmul(W.T, X.T)
         top_indices = np.argsort(raw_scores)[-expected_num_winners:]
         threshold = raw_scores[top_indices[1]]
-        threshold_data = f'The threshold for being selected is a score of {threshold}'
         print(f'The threshold for being selected is a score of {threshold}')
         for index in top_indices:
             predictions[index] = 1
     else:
-        for index, score in enumerate(np.matmul(W.T, X.T) ):
-            if score >= 0.5:
-                predictions[index] = 1
+        predictions = np.where(raw_scores >= (0 if not second_keyword else 1), 1, -1)
+        threshold = None
+
+    # Return the beautiful result
     return predictions, raw_scores, threshold
 
 
@@ -79,13 +92,12 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
         non_zero_preds = preds[non_zero_indices]
         non_zero_Y = Y[non_zero_indices]
         accuracy = 1 - (np.sum(np.abs(non_zero_preds - non_zero_Y)) / non_zero_preds.shape[0])
-
     else:
-        accuracy = 1 - (np.sum(np.abs(preds - Y)) / bios.shape[0])
+        accuracy = np.mean(preds - Y == 0)
     return accuracy
 
 
-def main(file_path):
+def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, save_results=True):
     # TODO fix this later
     # Define global variables
     global bios
@@ -95,10 +107,22 @@ def main(file_path):
     # Get the data
     bios = pd.read_csv(file_path)['bio']
 
+    # If there is a second keyword, filter the data preemptively
+    if second_keyword:
+        keyword_regex = rf"\b{keyword}\b"
+        second_keyword_regex = rf"\b{second_keyword}\b"
+        contains_first = (bios.str.contains(keyword_regex, regex=True) )
+        contains_second = (bios.str.contains(second_keyword_regex, regex=True) )
+        contains_both = (bios.str.contains(keyword_regex, regex=True)
+                         & bios.str.contains(second_keyword_regex, regex=True) )
+        contains_first_or_second = (contains_first | contains_second) & ~contains_both
+        print(f'{np.mean(contains_first)} contain {keyword}, {np.mean(contains_second)} contain {second_keyword}')
+        print(f'{np.mean(contains_both)} contain both, giving {np.mean(contains_first_or_second)} containing only one')
+        bios = bios[contains_first_or_second]
+
     # Construct a vocabulary
-    minimum_appearances_prevalence = 5
     is_prevalence = True
-    vocabulary = sorted(construct_vocabulary(minimum_appearances_prevalence, is_prevalence) )
+    vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence) )
     ordered_vocabulary = {}
     token_lookup = {}
     for index, token in enumerate(vocabulary):
@@ -110,80 +134,97 @@ def main(file_path):
     train_bios, test_bios = train_test_split(bios, test_size=0.1)
 
     # Create empty X with bias, create empty Y
+    # X is the length of the vocabulary (without keywords) + 1 for the bias
     X = np.zeros((train_bios.shape[0], len(vocabulary) ) )
     Y = np.zeros((train_bios.shape[0], ) )
 
     # Fill X and Y with values
-    X, Y = fill_values(train_bios, X, Y)
-    expected_percent = np.sum(Y) / len(Y)
+    X, Y = fill_values(keyword, second_keyword, train_bios, X, Y)
+    expected_percent = np.sum(Y == 1) / len(Y)  # TODO Check this works
     print(f'The expected number of bios with {keyword} is {expected_percent}')
 
     # Define lambda
-    lambda_value = 0.00001
     lambda_I = lambda_value * np.identity(len(vocabulary))
 
     # Define the unique file identifier
-    file_identifier = f'{keyword}_{minimum_appearances_prevalence}{"prevalence" if is_prevalence else "appearances"}_{lambda_value}lambda{"_augment" if augment_predictions else ""}{"_onesaccuracy" if ones_accuracy else ""}'
+    file_identifier = f'{keyword}_' \
+                      f'{second_keyword + "_" if second_keyword else ""}' \
+                      f'{minimum_appearances_prevalence}' \
+                      f'{"prevalence" if is_prevalence else "appearances"}_' \
+                      f'{lambda_value}lambda' \
+                      f'{"_augment" if augment_predictions else ""}' \
+                      f'{"_onesaccuracy" if ones_accuracy else ""}'
 
     # Calculate W
-    print('Calculating W...')
+    print('\nCalculating W...')
     W = np.linalg.solve(np.matmul(X.T, X) + lambda_I, np.matmul(X.T, Y) )
-    np.savetxt(f'Weights/{file_identifier}', W, delimiter=',', fmt='%f')
+    if save_results:
+        np.savetxt(f'Weights/{file_identifier}', W, delimiter=',', fmt='%f')
 
     # Evaluate the accuracy of W on the test and train sets
     print('Calculating the predictions on the training set')
-    preds_train, raw_scores, threshold = predict(W, X, Y)
+    preds_train, raw_scores, threshold = predict(keyword, second_keyword, W, X, Y, augment_predictions)
 
     # Save information in results
-    os.makedirs(f'Results/{file_identifier}', exist_ok=True)
-    np.savetxt(f'Results/{file_identifier}/W', W, delimiter=',', fmt='%f')
-    np.savetxt(f'Results/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
-    np.savetxt(f'Results/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
-    token_lookup_file_path = f'Results/{file_identifier}/token_lookup'
-    with open(token_lookup_file_path, 'w') as file:
-        json.dump(token_lookup, file)
+    if save_results:
+        os.makedirs(f'Results/{file_identifier}', exist_ok=True)
+        np.savetxt(f'Results/{file_identifier}/W', W, delimiter=',', fmt='%f')
+        np.savetxt(f'Results/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
+        np.savetxt(f'Results/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
+        token_lookup_file_path = f'Results/{file_identifier}/token_lookup'
+        with open(token_lookup_file_path, 'w') as file:
+            json.dump(token_lookup, file)
     # Finds the training accuracy
     accuracy = find_accuracy(ones_accuracy, preds_train, train_bios, Y)
-    train_accuracy_data = f'The train accuracy is {accuracy}'
+    train_accuracy_data = f'The train accuracy is {accuracy}\n'
     print(train_accuracy_data)
 
     # Find the test accuracy
     print('Calculating the predictions on the testing set')
     X_test = np.zeros((test_bios.shape[0], len(vocabulary)))
     Y_test = np.zeros((test_bios.shape[0],))
-    X_test, Y_test = fill_values(test_bios, X_test, Y_test)
-    preds_test, _, _ = predict(W, X_test, Y_test)
+    X_test, Y_test = fill_values(keyword, second_keyword, test_bios, X_test, Y_test)
+    preds_test, _, _ = predict(keyword, second_keyword, W, X_test, Y_test, augment_predictions)
     accuracy = find_accuracy(ones_accuracy, preds_test, test_bios, Y_test)
-    test_accuracy_data = f'The test accuracy is {accuracy}'
+    test_accuracy_data = f'The test accuracy is {accuracy}\n'
     print(test_accuracy_data)
 
     # Save the predictions and the true values
-    Y_preds_raw_bios = pd.DataFrame({
-        'Y': Y,
-        'preds_train': preds_train,
-        'raw_scores': raw_scores,
-        'bios': train_bios
-    })
-    Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/Y_and_preds')
+    if save_results:
+        Y_preds_raw_bios = pd.DataFrame({
+            'Y': Y,
+            'preds_train': preds_train,
+            'raw_scores': raw_scores,
+            'bios': train_bios
+        })
+        Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/Y_and_preds')
 
-    # Save the non-zero ones separately
-    nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
-    nonzero_Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/nonzero_Y_and_preds')
+        # Save the non-zero ones separately
+        nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
+        nonzero_Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/nonzero_Y_and_preds')
 
-    # Save other relevant data
-    threshold_data = f'The threshold for being selected is a score of {threshold}'
-    relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data]
-    with open(f'Results/{file_identifier}/relevant_data', "w") as file:
-        file.writelines("\n".join(relevant_data))
+        # Save other relevant data
+        threshold_data = f'The threshold for being selected is a score of {threshold}'
+        relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data]
+        with open(f'Results/{file_identifier}/relevant_data', "w") as file:
+            file.writelines("\n".join(relevant_data))
+
+    # Return the test and train accuracy
+    return test_accuracy_data, train_accuracy_data
 
 
 if __name__ == '__main__':
-    # TODO fix this later
-    global keyword
-    global augment_predictions
-    global ones_accuracy
-    keyword = 'father'
+    keyword = 'mom'
     augment_predictions = True
-    ones_accuracy = True
+    ones_accuracy = False  # If ones_accuracy, there shouldn't be a second keyword
+    second_keyword = 'husband'
+    lambda_value = 1e-05
+    minimum_appearances_prevalence = 1
 
-    main('Datasets/sampled_one_bio_per_year_2022.csv')
+    main('Datasets/sampled_one_bio_per_year_2022.csv',
+         keyword=keyword,
+         augment_predictions=augment_predictions,
+         ones_accuracy=ones_accuracy,
+         second_keyword=second_keyword,
+         lambda_value=lambda_value,
+         minimum_appearances_prevalence=minimum_appearances_prevalence,)
