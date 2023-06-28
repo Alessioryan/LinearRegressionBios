@@ -5,28 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Update workspace stuff">
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw_onlyfans__augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_onlyfans_1prevalence_1e-05lambda_augment/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_onlyfans_1prevalence_1e-05lambda_augment/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_onlyfans_1prevalence_1e-05lambda_augment/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_onlyfans_1prevalence_1e-05lambda_augment/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_onlyfans_1prevalence_1e-05lambda_augment/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_porn_1prevalence_1e-05lambda_augment/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_porn_1prevalence_1e-05lambda_augment/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_porn_1prevalence_1e-05lambda_augment/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_porn_1prevalence_1e-05lambda_augment/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw_porn_1prevalence_1e-05lambda_augment/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/nsfw_onlyfans_1prevalence_1e-05lambda_augment" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/nsfw_porn_1prevalence_1e-05lambda_augment" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plots/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plots/porn_1prevalence_1e-05lambda_augment_onesaccuracy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plots/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_1prevalence_1e-05lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/porn_1prevalence_1e-05lambda_augment_onesaccuracy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/W" beforeDir="false" afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/W" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/Y" beforeDir="false" afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/Y" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/preds" beforeDir="false" afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/preds" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" beforeDir="false" afterPath="$PROJECT_DIR$/Results/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weights/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy" beforeDir="false" afterPath="$PROJECT_DIR$/Weights/nsfw_1prevalence_1e-05lambda_augment_onesaccuracy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hyperparameter_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

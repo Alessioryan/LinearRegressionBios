@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # Returns the top n weights
@@ -30,6 +31,27 @@ def enter_analysis_mode():
                 break
 
 
+# Plot
+def plot(weights, file_path):
+    # Extract keys and values from the dictionary
+    x = list(weights.keys() )
+    y = list(weights.values() )
+
+    # Plot the data
+    plt.bar(x, y)
+
+    # Set labels and title
+    plt.xlabel('Strings', fontname='Apple Color Emoji', size=10)
+    plt.ylabel('Values')
+    plt.title('NSFW vs Porn')
+
+    # Rotate x-axis labels if needed
+    plt.xticks(rotation=45)
+
+    # Save the fig
+    plt.savefig(f'Plots/{file_identifier}')
+
+
 # Main method
 def main():
     # Globalize important variables
@@ -51,13 +73,19 @@ def main():
     print(f'The weights of the bias is {W[len(W) - 1]}')
 
     # Enter analysis mode
-    enter_analysis_mode()
+    # enter_analysis_mode()
+
+    # Plot the results
+    combined_dict = {}
+    combined_dict.update(bottom_ten_weights)
+    combined_dict.update(top_ten_weights)
+    plot(combined_dict, file_identifier)
 
 
 if __name__ == '__main__':
     # TODO fix this later
     global file_identifier
-    file_identifier = 'nsfw_porn_1prevalence_1e-05lambda_augment'
+    file_identifier = 'porn_nsfw_5prevalence_1e-05lambda_augment_onesaccuracy'
 
     # TODO make it so that you can search the weight for a specific word compared to the average
 

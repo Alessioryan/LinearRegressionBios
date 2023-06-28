@@ -15,7 +15,7 @@ def tokenize(bio):
 
 
 # Construct a vocabulary. A token is in the vocabulary if it appears in at least n bios
-def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence=False):
+def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence):
     raw_vocabulary = defaultdict(int)
     for bio in bios:
         for token in set(tokenize(bio) ):
@@ -142,7 +142,7 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
     # Order tokens alphabetically
 
     # Create train/test split, 90% train, 10% test
-    train_bios, test_bios = train_test_split(bios, test_size=0.1)
+    train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
 
     # Create empty X with bias, create empty Y
     # X is the length of the vocabulary (without keywords) + 1 for the bias
@@ -220,19 +220,30 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
         with open(f'Results/{file_identifier}/relevant_data', "w") as file:
             file.writelines("\n".join(relevant_data))
 
+        # Save the weights with their definitions
+        weights_with_tokens = pd.DataFrame({
+            'Weights': W,
+            'Token': token_lookup.items()
+        })
+        weights_with_tokens.to_csv(f'Results/{file_identifier}/weights_with_tokens', index=False)
+
+        # Sort it
+        sorted_weights_with_tokens = weights_with_tokens.sort_values(by='Weights', ascending=False)
+        sorted_weights_with_tokens.to_csv(f'Results/{file_identifier}/sorted_weights_with_tokens', index=False)
+
     # Return the test and train accuracy
     return test_accuracy_data, train_accuracy_data
 
 
 if __name__ == '__main__':
-    keyword = 'nsfw'
+    keyword = 'porn'
     augment_predictions = True
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = None
+    second_keyword = 'nsfw'
     lambda_value = 1e-05
-    minimum_appearances_prevalence = 1
+    minimum_appearances_prevalence = 5
 
-    main('Datasets/sampled_one_bio_per_year_2022.csv',
+    main('Datasets/one_bio_per_year_2022.csv',
          keyword=keyword,
          augment_predictions=augment_predictions,
          ones_accuracy=ones_accuracy,
