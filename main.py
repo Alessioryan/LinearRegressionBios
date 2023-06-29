@@ -11,30 +11,37 @@ import re
 def tokenize(bio):
     bio = str(bio).casefold()
     bio_tokens = re.split(r"\b|\s+", bio)
-    return bio_tokens
+    return set(bio_tokens)
 
 
 # Construct a vocabulary. A token is in the vocabulary if it appears in at least n bios
 def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence):
-    raw_vocabulary = defaultdict(int)
-    for bio in bios:
-        for token in set(tokenize(bio) ):
-            raw_vocabulary[token] += 1
+    # Tokenize all bios and create a DataFrame
+    tokens_df = pd.DataFrame(bios, columns=['bio'])
+    tokens_df['tokens'] = tokens_df['bio'].apply(tokenize)
 
-    # We don't want to look at our keywords in the vocabulary
-    del raw_vocabulary[keyword]
-    if second_keyword:
+    # Flatten the tokens column into individual rows
+    tokens_flat = tokens_df.explode('tokens')
+
+    # Count the occurrences of each token
+    raw_vocabulary = tokens_flat['tokens'].value_counts().to_dict()
+
+    # Remove the keywords from the vocabulary
+    if keyword in raw_vocabulary:
+        del raw_vocabulary[keyword]
+    if second_keyword and second_keyword in raw_vocabulary:
         del raw_vocabulary[second_keyword]
 
-    # Remove any token that appears less than the minimum_appearances threshold
-    vocabulary = defaultdict(int)
-    for key, value in raw_vocabulary.items():
-        if is_prevalence:
-            if value / len(bios) * 10000 > minimum_appearances:
-                vocabulary[key] = value
-        else:
-            if value > minimum_appearances:
-                vocabulary[key] = value
+    # Create a DataFrame from the raw_vocabulary dictionary
+    vocab_df = pd.DataFrame.from_dict(raw_vocabulary, orient='index', columns=['count'])
+
+    # Filter the vocabulary based on the minimum_appearances threshold
+    if is_prevalence:
+        vocab_df = vocab_df[vocab_df['count'] / len(bios) * 10000 > minimum_appearances]
+    else:
+        vocab_df = vocab_df[vocab_df['count'] > minimum_appearances]
+
+    vocabulary = vocab_df['count'].to_dict()
     print(f'The size of the vocabulary is {len(vocabulary)}')
     return vocabulary
 
@@ -97,12 +104,22 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
     return accuracy
 
 
-def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, save_results=True):
+def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
+         minimum_appearances_prevalence, multiyear=False, save_results=True):
     # TODO fix this later
     # Define global variables
     global bios
     global ordered_vocabulary
     global expected_percent
+
+    # Sanity checks
+    # Can't have second keyword and one's accuracy
+    assert not (second_keyword is not None and ones_accuracy)
+
+    # Find the year and state that you're working on that year
+    year = file_path[-8:-4]
+    if multiyear:
+        print(f'Working with year {year}')
 
     # Get the data
     print('Reading the input file')
@@ -114,10 +131,10 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
         data_frame.columns = column_names
     else:
         data_frame = pd.read_csv(file_path)
-    bios = data_frame['bio']
+    bios = data_frame['bio'].dropna()  # Drop nan
     print(f'There are {len(bios)} total bios')
 
-    # If there is a second keyword, filter the data preemptively
+    # If there is a second keyword, filter the data
     if second_keyword:
         keyword_regex = rf"\b{keyword}\b"
         second_keyword_regex = rf"\b{second_keyword}\b"
@@ -129,9 +146,21 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
         print(f'{np.mean(contains_first)} contain {keyword}, {np.mean(contains_second)} contain {second_keyword}')
         print(f'{np.mean(contains_both)} contain both, giving {np.mean(contains_first_or_second)} containing only one')
         bios = bios[contains_first_or_second]
-    print(f'\n       There are {len(bios)} relevant bios')
+
+    # If there is only one keyword and fifty_fifty is on, then get rid of enough bios so that it's actually 50/50
+    if fifty_fifty:
+        #  TODO allow for two keyword fifty_fifty
+        keyword_regex = rf"\b{keyword}\b"
+        contains_keyword = bios.str.contains(keyword_regex, regex=True)
+        bios_with_keyword = bios[contains_keyword]
+        bios_without_keyword = bios[~contains_keyword]
+        same_size_no_keyword = bios_without_keyword.sample(n=len(bios_with_keyword), replace=False, random_state=42)
+        combined_bios = pd.concat([bios_with_keyword, same_size_no_keyword], ignore_index=True)
+        bios = combined_bios.sample(frac=1, random_state=42).reset_index(drop=True)
+    print(f'\n -----> There are {len(bios)} relevant bios')
 
     # Construct a vocabulary
+    print(f'Building a vocabulary')
     is_prevalence = True
     vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence) )
     ordered_vocabulary = {}
@@ -160,16 +189,20 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
     # Define the unique file identifier
     file_identifier = f'{keyword}_' \
                       f'{second_keyword + "_" if second_keyword else ""}' \
-                      f'{minimum_appearances_prevalence}' \
-                      f'{"prevalence" if is_prevalence else "appearances"}_' \
+                      f'{"_sampled" if "sampled" in file_path else ""}' \
+                      f'{minimum_appearances_prevalence}{"prevalence" if is_prevalence else "appearances"}_' \
+                      f'{"_fiftyfifty" if fifty_fifty else ""}' \
                       f'{lambda_value}lambda' \
                       f'{"_augment" if augment_predictions else ""}' \
                       f'{"_onesaccuracy" if ones_accuracy else ""}'
 
+    if multiyear:
+        file_identifier += f'/{year}'
+
     # Calculate W
     print('\nCalculating W...')
     W = np.linalg.solve(np.matmul(X.T, X) + lambda_I, np.matmul(X.T, Y) )
-    if save_results:
+    if save_results and not multiyear:
         np.savetxt(f'Weights/{file_identifier}', W, delimiter=',', fmt='%f')
 
     # Evaluate the accuracy of W on the test and train sets
@@ -177,12 +210,13 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
     preds_train, raw_scores, threshold = predict(keyword, second_keyword, W, X, Y, augment_predictions)
 
     # Save information in results
+    save_directory = "Results" if not multiyear else 'Multiyear'
     if save_results:
-        os.makedirs(f'Results/{file_identifier}', exist_ok=True)
-        np.savetxt(f'Results/{file_identifier}/W', W, delimiter=',', fmt='%f')
-        np.savetxt(f'Results/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
-        np.savetxt(f'Results/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
-        token_lookup_file_path = f'Results/{file_identifier}/token_lookup'
+        os.makedirs(f'{save_directory}/{file_identifier}', exist_ok=True)
+        np.savetxt(f'{save_directory}/{file_identifier}/W', W, delimiter=',', fmt='%f')
+        np.savetxt(f'{save_directory}/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
+        np.savetxt(f'{save_directory}/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
+        token_lookup_file_path = f'{save_directory}/{file_identifier}/token_lookup'
         with open(token_lookup_file_path, 'w') as file:
             json.dump(token_lookup, file)
     # Finds the training accuracy
@@ -208,46 +242,50 @@ def main(file_path, keyword, augment_predictions, ones_accuracy, second_keyword,
             'raw_scores': raw_scores,
             'bios': train_bios
         })
-        Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/Y_and_preds')
+        Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/Y_and_preds')
 
         # Save the non-zero ones separately
         nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
-        nonzero_Y_preds_raw_bios.to_csv(f'Results/{file_identifier}/nonzero_Y_and_preds')
+        nonzero_Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/nonzero_Y_and_preds')
 
         # Save other relevant data
         threshold_data = f'The threshold for being selected is a score of {threshold}'
         relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data]
-        with open(f'Results/{file_identifier}/relevant_data', "w") as file:
+        with open(f'{save_directory}/{file_identifier}/relevant_data', "w") as file:
             file.writelines("\n".join(relevant_data))
 
         # Save the weights with their definitions
         weights_with_tokens = pd.DataFrame({
             'Weights': W,
-            'Token': token_lookup.items()
+            'Token': token_lookup.values()
         })
-        weights_with_tokens.to_csv(f'Results/{file_identifier}/weights_with_tokens', index=False)
+        weights_with_tokens.to_csv(f'{save_directory}/{file_identifier}/weights_with_tokens', index=False)
 
         # Sort it
         sorted_weights_with_tokens = weights_with_tokens.sort_values(by='Weights', ascending=False)
-        sorted_weights_with_tokens.to_csv(f'Results/{file_identifier}/sorted_weights_with_tokens', index=False)
+        sorted_weights_with_tokens.to_csv(f'{save_directory}/{file_identifier}/sorted_weights_with_tokens', index=False)
 
     # Return the test and train accuracy
     return test_accuracy_data, train_accuracy_data
 
 
 if __name__ == '__main__':
-    keyword = 'porn'
+    keyword = 'nsfw'
     augment_predictions = True
+    fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = 'nsfw'
-    lambda_value = 1e-05
-    minimum_appearances_prevalence = 5
+    second_keyword = None
+    lambda_value = 1
+    minimum_appearances_prevalence = 15
+    multiyear = False
 
-    main('Datasets/one_bio_per_year_2022.csv',
+    main('Datasets/sampled_one_bio_per_year_2022.csv',
          keyword=keyword,
          augment_predictions=augment_predictions,
+         fifty_fifty=fifty_fifty,
          ones_accuracy=ones_accuracy,
          second_keyword=second_keyword,
          lambda_value=lambda_value,
          minimum_appearances_prevalence=minimum_appearances_prevalence,
+         multiyear=multiyear,
          save_results=True)

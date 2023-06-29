@@ -10,7 +10,8 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
     keyword = 'nsfw'
     augment_predictions = True
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = 'onlyfans'
+    fifty_fifty = False
+    second_keyword = None
 
     # Define the accuracy lists and other necessary lists
     lambdas = np.logspace(np.log10(lower_lambda), np.log10(upper_lambda), steps_lambda)
@@ -26,6 +27,7 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
                                          main.main('Datasets/sampled_one_bio_per_year_2022.csv',
                                                    keyword=keyword,
                                                    augment_predictions=augment_predictions,
+                                                   fifty_fifty=fifty_fifty,
                                                    ones_accuracy=ones_accuracy,
                                                    second_keyword=second_keyword,
                                                    lambda_value=lambda_value,
@@ -43,7 +45,7 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
     file_identifier = f'Hyperparameter tunings/{keyword}_' \
                       f'{second_keyword + "_" if second_keyword else ""}' \
                       f'{"_augment" if augment_predictions else ""}' \
-                      f'{"_onesaccuracy" if ones_accuracy else ""}'
+                      f'{"_onesaccuracy" if ones_accuracy else ""}.json'
     # Write the list to the JSON file
     with open(file_identifier, "w") as file:
         json.dump(sorted_list, file)
