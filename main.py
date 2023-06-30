@@ -159,10 +159,10 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         # Get the bios with and without the keyword
         keyword_regex = rf"\b{keyword}\b"  # TODO does this capture the same keywords as tokenization?
         bios_with_keyword = bios[bios.str.contains(keyword_regex, regex=True)]
+        bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
 
         # If the amount of bios with the keyword is less than default amount, then we actually do stuff
         if len(bios_with_keyword) / len(bios) < default_amount:
-            bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
             total_required_bios = int(len(bios_with_keyword) / default_amount)
             total_without_keyword_bios = total_required_bios - len(bios_with_keyword)
 
@@ -174,9 +174,18 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
             # Shuffle the dataframe
             bios = bios.sample(frac=1, random_state=42)
-        else:
-            pass
-            # TODO EMILY
+        elif len(bios_without_keyword) / len(bios) < default_amount:
+            total_required_bios = int(len(bios_without_keyword) / default_amount)
+            total_with_keyword_bios = total_required_bios - len(bios_without_keyword)
+
+            # Sample the right amount of bios
+            sampled_bios_with_keyword = bios_without_keyword.sample(n=total_with_keyword_bios, replace=False, random_state=42)
+
+            # Concatenate the shuffled dataframe
+            bios = pd.concat([bios_without_keyword, sampled_bios_with_keyword], ignore_index=True)
+
+            # Shuffle the dataframe
+            bios = bios.sample(frac=1, random_state=42)
 
     # If there is a second keyword, filter the data
     if second_keyword:
@@ -264,8 +273,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         with open(token_lookup_file_path, 'w') as file:
             json.dump(token_lookup, file)
     # Finds the training accuracy
-    accuracy = find_accuracy(ones_accuracy, preds_train, train_bios, Y)
-    train_accuracy_data = f'The train accuracy is {accuracy}\n'
+    train_accuracy = find_accuracy(ones_accuracy, preds_train, train_bios, Y)
+    train_accuracy_data = f'The train accuracy is {train_accuracy}\n'
     print(train_accuracy_data)
 
     # Find the test accuracy
@@ -274,8 +283,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     Y_test = np.zeros((test_bios.shape[0],))
     X_test, Y_test = fill_values(keyword, second_keyword, test_bios, X_test, Y_test)
     preds_test, _, _ = predict(keyword, second_keyword, W, X_test, Y_test, augment_predictions)
-    accuracy = find_accuracy(ones_accuracy, preds_test, test_bios, Y_test)
-    test_accuracy_data = f'The test accuracy is {accuracy}\n'
+    test_accuracy = find_accuracy(ones_accuracy, preds_test, test_bios, Y_test)
+    test_accuracy_data = f'The test accuracy is {test_accuracy}\n'
     print(test_accuracy_data)
 
     # Save the predictions and the true values
@@ -310,7 +319,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         sorted_weights_with_tokens.to_csv(f'{save_directory}/{file_identifier}/sorted_weights_with_tokens', index=False)
 
     # Return the test and train accuracy
-    return test_accuracy_data, train_accuracy_data
+    return test_accuracy, train_accuracy
 
 
 if __name__ == '__main__':

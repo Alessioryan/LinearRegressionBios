@@ -10,7 +10,7 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
     # Define parameters
     keyword = 'porn'
     augment_predictions = True
-    ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
+    ones_accuracy = False  # If ones_accuracy, there shouldn't be a second keyword
     fifty_fifty = False
     second_keyword = None
 
@@ -47,8 +47,8 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
 
     # Save the results to a file
     # Define the unique file identifier
-    file_identifier = f'Hyperparameter tunings/{keyword}_' \
-                      f'{second_keyword + "_" if second_keyword else ""}' \
+    file_identifier = f'Hyperparameter tunings/{keyword}' \
+                      f'_{second_keyword + "_" if second_keyword else ""}' \
                       f'{"_augment" if augment_predictions else ""}' \
                       f'{"_onesaccuracy" if ones_accuracy else ""}.json'
     # Write the list to the JSON file
@@ -58,6 +58,6 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
 
 # Run the code!!
 if __name__ == '__main__':
-    hyperparameter_tune(10**(-7), 10**(-5), 2,
-                        5, 9, 3,
-                        0, 0.5, 4)
+    hyperparameter_tune(10**(-5), 10**(-5), 1,
+                        5, 5, 1,
+                        0, 1, 20)
