@@ -54,11 +54,12 @@ def analyze_multiyear_weights(file_identifier):
 
     # Extract the years from column names and calculate the slope
     years = [int(col.split('_')[1]) for col in multiyear_weights.columns if col.startswith('Weights_')]
-    multiyear_weights['Slope'] = multiyear_weights.apply(
-        # The slope is equal to the LINEAR best fit if there's no nans and they're all 0, otherwise it's equal to Nan
-        lambda row: np.polyfit(years, row[1:], 1)[0],
-        axis=1
-    )
+    slopes = []
+    for index, row in multiyear_weights.iterrows():
+        weights = row[1:].astype(float)
+        slope = np.polyfit(years, weights, 1)[0]
+        slopes.append(slope)
+    multiyear_weights['Slope'] = slopes
 
     # Sort by the weight of Slope
     sorted_multiyear_weights = multiyear_weights.sort_values('Slope')
