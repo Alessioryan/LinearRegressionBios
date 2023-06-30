@@ -97,6 +97,7 @@ if __name__ == '__main__':
     minimum_appearances_prevalence = 3  # Should always be prevalence, not minimum appearances
     default_amount = 0.02
 
+    # The actual analysis
     # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount)
 
     combine_multiyear_weights('nsfw_porn_1prevalence_1e-05lambda_augment')
