@@ -44,6 +44,8 @@ def analyze_multiyear_weights(file_identifier):
     print(f'There are {len(multiyear_weights)} non-na rows')
     print(multiyear_weights['Token'])
 
+    # Find ones with the greatest slope increase and decrease
+
 
 # Run the multiyear analysis
 def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,

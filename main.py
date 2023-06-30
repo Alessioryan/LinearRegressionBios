@@ -174,6 +174,9 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
             # Shuffle the dataframe
             bios = bios.sample(frac=1, random_state=42)
+        else:
+            pass
+            # TODO EMILY
 
     # If there is a second keyword, filter the data
     if second_keyword:
@@ -311,15 +314,15 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'nsfw'
+    keyword = 'porn'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
     second_keyword = None
-    lambda_value = 1
-    minimum_appearances_prevalence = 15
+    lambda_value = 10**(-7)
+    minimum_appearances_prevalence = 5
     multiyear = False
-    default_amount = 0.5
+    default_amount = 0.0
 
     main('Datasets/sampled_one_bio_per_year_2022.csv',
          keyword=keyword,

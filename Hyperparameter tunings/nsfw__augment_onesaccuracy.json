@@ -1,14 +1,14 @@
 [
-	[1e-05, 5, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.28409090909090906\n"]],
-	[0.0001, 5, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.28409090909090906\n"]],
-	[0.001, 5, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.28409090909090906\n"]],
-	[0.01, 5, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.28409090909090906\n"]],
-	[1e-05, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.24861878453038677\n"]],
-	[0.0001, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.24861878453038677\n"]],
-	[0.001, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.24861878453038677\n"]],
-	[0.01, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.24861878453038677\n"]],
-	[1e-05, 1, ["The test accuracy is 0.15315315315315314\n", "The train accuracy is 0.45431145431145437\n"]],
-	[0.0001, 1, ["The test accuracy is 0.15315315315315314\n", "The train accuracy is 0.45431145431145437\n"]],
-	[0.001, 1, ["The test accuracy is 0.15315315315315314\n", "The train accuracy is 0.45431145431145437\n"]],
-	[0.01, 1, ["The test accuracy is 0.15315315315315314\n", "The train accuracy is 0.45431145431145437\n"]]
+	[1e-05, 7, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.26823793490460157\n"]],
+	[0.021544346900318846, 7, ["The test accuracy is 0.19626168224299068\n", "The train accuracy is 0.26823793490460157\n"]],
+	[1e-05, 5, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.2899543378995434\n"]],
+	[1e-05, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.2444933920704846\n"]],
+	[0.021544346900318846, 5, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.2899543378995434\n"]],
+	[0.021544346900318846, 9, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.2444933920704846\n"]],
+	[46.41588833612782, 5, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.2811791383219955\n"]],
+	[46.41588833612782, 7, ["The test accuracy is 0.18518518518518523\n", "The train accuracy is 0.26823793490460157\n"]],
+	[46.41588833612782, 9, ["The test accuracy is 0.17431192660550454\n", "The train accuracy is 0.25416204217536076\n"]],
+	[100000.0, 5, ["The test accuracy is 0.10344827586206895\n", "The train accuracy is 0.14837398373983735\n"]],
+	[100000.0, 7, ["The test accuracy is 0.10344827586206895\n", "The train accuracy is 0.14720812182741116\n"]],
+	[100000.0, 9, ["The test accuracy is 0.09401709401709402\n", "The train accuracy is 0.14372469635627527\n"]]
 ]
