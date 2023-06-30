@@ -323,7 +323,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'porn'
+    keyword = 'mom'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
@@ -331,7 +331,7 @@ if __name__ == '__main__':
     lambda_value = 10**(-7)
     minimum_appearances_prevalence = 5
     multiyear = False
-    default_amount = 0.0
+    default_amount = 0.05
 
     main('Datasets/sampled_one_bio_per_year_2022.csv',
          keyword=keyword,

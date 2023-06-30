@@ -88,18 +88,19 @@ def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accur
 
 # I put everything in here because it's not worth it to make a new method
 if __name__ == '__main__':
-    keyword = 'nsfw'
+    keyword = 'mom'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
     second_keyword = None
     lambda_value = 1e-05
-    minimum_appearances_prevalence = 3  # Should always be prevalence, not minimum appearances
-    default_amount = 0.02
+    minimum_appearances_prevalence = 15  # Should always be prevalence, not minimum appearances
+    default_amount = 0.05
 
     # The actual analysis
-    # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount)
+    #run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount)
 
-    combine_multiyear_weights('nsfw_porn_1prevalence_1e-05lambda_augment')
+    combine_multiyear_weights('mom_15prevalence_1e-05lambda_augment_onesaccuracy')
 
-    analyze_multiyear_weights('nsfw_porn_1prevalence_1e-05lambda_augment')
+    analyze_multiyear_weights('mom_15prevalence_1e-05lambda_augment_onesaccuracy')
+
