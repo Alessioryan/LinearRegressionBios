@@ -15,33 +15,46 @@ def tokenize(bio):
 
 
 # Construct a vocabulary. A token is in the vocabulary if it appears in at least n bios
-def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence):
-    # Tokenize all bios and create a DataFrame
-    tokens_df = pd.DataFrame(bios, columns=['bio'])
-    tokens_df['tokens'] = tokens_df['bio'].apply(tokenize)
+def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_prevalence, year=None):
+    if year is None or not is_prevalence:
+        # Tokenize all bios and create a DataFrame
+        tokens_df = pd.DataFrame(bios, columns=['bio'])
+        tokens_df['tokens'] = tokens_df['bio'].apply(tokenize)
 
-    # Flatten the tokens column into individual rows
-    tokens_flat = tokens_df.explode('tokens')
+        # Flatten the tokens column into individual rows
+        tokens_flat = tokens_df.explode('tokens')
 
-    # Count the occurrences of each token
-    raw_vocabulary = tokens_flat['tokens'].value_counts().to_dict()
+        # Count the occurrences of each token
+        raw_vocabulary = tokens_flat['tokens'].value_counts().to_dict()
+
+        # Create a DataFrame from the raw_vocabulary dictionary
+        vocab_df = pd.DataFrame.from_dict(raw_vocabulary, orient='index', columns=['count'])
+
+        # Filter the vocabulary based on the minimum_appearances threshold
+        if is_prevalence:
+            vocab_df = vocab_df[vocab_df['count'] / len(bios) * 10000 > minimum_appearances]
+        else:
+            vocab_df = vocab_df[vocab_df['count'] > minimum_appearances]
+
+        # There's gotta be a better way to write this
+        vocabulary = set(vocab_df.index)
+    else:
+        # Load in the prevalences for that year
+        year_prevalence = pd.read_csv("Datasets/jjjitv2.csv")
+        year_prevalence = year_prevalence[year_prevalence["Year"] == int(year)]
+
+        # Filter ones with too low of a prevalence
+        year_prevalence = year_prevalence[year_prevalence["Prevalence"] >= minimum_appearances]
+
+        # Create a vocabulary out of this
+        vocabulary = set(year_prevalence["Token"])
 
     # Remove the keywords from the vocabulary
-    if keyword in raw_vocabulary:
-        del raw_vocabulary[keyword]
-    if second_keyword and second_keyword in raw_vocabulary:
-        del raw_vocabulary[second_keyword]
+    if keyword in vocabulary:
+        vocabulary.remove(keyword)
+    if second_keyword and second_keyword in vocabulary:
+        vocabulary.remove(second_keyword)
 
-    # Create a DataFrame from the raw_vocabulary dictionary
-    vocab_df = pd.DataFrame.from_dict(raw_vocabulary, orient='index', columns=['count'])
-
-    # Filter the vocabulary based on the minimum_appearances threshold
-    if is_prevalence:
-        vocab_df = vocab_df[vocab_df['count'] / len(bios) * 10000 > minimum_appearances]
-    else:
-        vocab_df = vocab_df[vocab_df['count'] > minimum_appearances]
-
-    vocabulary = vocab_df['count'].to_dict()
     print(f'The size of the vocabulary is {len(vocabulary)}')
     return vocabulary
 
@@ -105,7 +118,7 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
 
 
 def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
-         minimum_appearances_prevalence, multiyear=False, save_results=True):
+         minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None):
     # TODO fix this later
     # Define global variables
     global bios
@@ -115,6 +128,13 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     # Sanity checks
     # Can't have second keyword and one's accuracy
     assert not (second_keyword is not None and ones_accuracy)
+    # fifty_fifty and default_amount overlap
+    assert not (fifty_fifty and default_amount is not None)
+    # Can't have a second keyword and default_amount
+    assert not (default_amount is not None and second_keyword is not None)
+    # Default amount must between 0 and 1
+    if default_amount is not None:
+        assert not ( (default_amount > 1) or (default_amount < 0) )
 
     # Find the year and state that you're working on that year
     year = file_path[-8:-4]
@@ -133,6 +153,27 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         data_frame = pd.read_csv(file_path)
     bios = data_frame['bio'].dropna()  # Drop nan
     print(f'There are {len(bios)} total bios')
+
+    # If there is a default amount, then filter some of the data
+    if default_amount is not None:
+        # Get the bios with and without the keyword
+        keyword_regex = rf"\b{keyword}\b"  # TODO does this capture the same keywords as tokenization?
+        bios_with_keyword = bios[bios.str.contains(keyword_regex, regex=True)]
+
+        # If the amount of bios with the keyword is less than default amount, then we actually do stuff
+        if len(bios_with_keyword) / len(bios) < default_amount:
+            bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
+            total_required_bios = int(len(bios_with_keyword) / default_amount)
+            total_without_keyword_bios = total_required_bios - len(bios_with_keyword)
+
+            # Sample the right amount of bios
+            sampled_bios_without_keyword = bios_without_keyword.sample(n=total_without_keyword_bios, replace=False, random_state=42)
+
+            # Concatenate the shuffled dataframe
+            bios = pd.concat([bios_with_keyword, sampled_bios_without_keyword], ignore_index=True)
+
+            # Shuffle the dataframe
+            bios = bios.sample(frac=1, random_state=42)
 
     # If there is a second keyword, filter the data
     if second_keyword:
@@ -162,7 +203,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     # Construct a vocabulary
     print(f'Building a vocabulary')
     is_prevalence = True
-    vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence) )
+    vocabulary = sorted(construct_vocabulary(keyword, second_keyword, minimum_appearances_prevalence, is_prevalence, year) )
     ordered_vocabulary = {}
     token_lookup = {}
     for index, token in enumerate(vocabulary):
@@ -278,6 +319,7 @@ if __name__ == '__main__':
     lambda_value = 1
     minimum_appearances_prevalence = 15
     multiyear = False
+    default_amount = 0.5
 
     main('Datasets/sampled_one_bio_per_year_2022.csv',
          keyword=keyword,
@@ -288,4 +330,5 @@ if __name__ == '__main__':
          lambda_value=lambda_value,
          minimum_appearances_prevalence=minimum_appearances_prevalence,
          multiyear=multiyear,
-         save_results=True)
+         save_results=True,
+         default_amount=default_amount)
