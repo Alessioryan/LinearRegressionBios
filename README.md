@@ -11,7 +11,7 @@ Main.main's parameters:
 - minimum_appearances_prevalence = the minimum number of appearances/prevalence in the data for a token to count in the vocab. It's prevalence by default, but you can change it to appearances by changing is_prevalence to False
 - multiyear = (by default False) formats the output files in the Multiyear folder rather than the Results folder. Used in multiyear.py
 - save_results = (by default True) saves the results in files
-- default_amount = (by deafault None) if None, then runs regression on the whole data file. Otherwise, it's the percentage of the file that we want to look at. Only works for one keyword. Assume the keyword is in p% of bios.
+- default_amount = (by default None) if None, then runs regression on the whole data file. Otherwise, it's the percentage of the file that we want to look at. Only works for one keyword. Assume the keyword is in p% of bios.
   - Enter number between 0 and 1. Call this n. This represents the percentage of bios with the keyword that we want to run the model on
   - If n < p, then this will select all bios.
   - If n > p, then the model will discard bios without the keyword randomly until n% of bios in the input data contain the keyword
@@ -19,3 +19,7 @@ Main.main's parameters:
     - make sure fifty_fifty is False
     - make sure second_keyword is None
     - make sure the number is between 0 and 1
+- max_training_size = (by default -1) 
+  - If -1, then runs on all the data. 
+  - If the amount of bios that are available given other parameters is less than max_training size, runs on all
+  - Otherwise, runs on max_training_size, randomly selecting from all the filtered bios until we're at that proportion
