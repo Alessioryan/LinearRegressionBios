@@ -1,11 +1,12 @@
 import os
+import matplotlib.pyplot as plt
 import main
 import pandas as pd
 import numpy as np
 
 
 # Create a function to analyze multiyear weights
-def combine_multiyear_weights(file_identifier):
+def combine_multiyear_weights(file_identifier, start_year=0, normalize=True):
     # Define the base directory where the dataframes are stored
     base_directory = f"Multiyear/{file_identifier}"
 
@@ -18,7 +19,25 @@ def combine_multiyear_weights(file_identifier):
         filepath = os.path.join(base_directory, directory, "weights_with_tokens")
         if not os.path.isfile(filepath):
             continue  # Skip directories without the desired file
+
+        # If start_year is not none and the year is before start year, skip it
+        if int(directory) < start_year:
+            continue
+
+        # Load the dataframe
         weight_tokens_df = pd.read_csv(filepath)
+
+        # Remove any 0 weights
+        weight_tokens_df = weight_tokens_df[weight_tokens_df["Weights"] != 0]
+
+        # Normalize if desired
+        if normalize:
+            # Calculate the mean and standard deviation of the "Weights" column
+            mean = weight_tokens_df['Weights'].mean()
+            std = weight_tokens_df['Weights'].std()
+
+            # Normalize the "Weights" column
+            weight_tokens_df['Weights'] = (weight_tokens_df['Weights'] - mean) / std
 
         # Rename the 'weights' column to include the year
         weights_col_name = f"Weights_{directory}"
@@ -36,7 +55,7 @@ def combine_multiyear_weights(file_identifier):
 
 
 # Analyze the combined weights
-def analyze_multiyear_weights(file_identifier):
+def analyze_multiyear_weights(file_identifier, start_year=None):
     # Get the dataframe
     base_directory = f"Multiyear/{file_identifier}"
     multiyear_weights = pd.read_csv(f'{base_directory}/combined_weights')
@@ -62,7 +81,7 @@ def analyze_multiyear_weights(file_identifier):
     multiyear_weights['Slope'] = slopes
 
     # Sort by the weight of Slope
-    sorted_multiyear_weights = multiyear_weights.sort_values('Slope')
+    sorted_multiyear_weights = multiyear_weights.sort_values('Slope', ascending=False)
 
     # Save the dataframe
     sorted_multiyear_weights.to_csv(base_directory + '/sloped_combined_weights', index=False)
@@ -70,7 +89,7 @@ def analyze_multiyear_weights(file_identifier):
 
 # Run the multiyear analysis
 def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
-                           minimum_appearances_prevalence, default_amount):
+                           minimum_appearances_prevalence, default_amount, max_training_size):
     # For every year between 2012 and 2022
     for year in range(2012, 2023):
         main.main(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv',
@@ -83,12 +102,45 @@ def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accur
                   minimum_appearances_prevalence=minimum_appearances_prevalence,
                   multiyear=True,  # For this file at least
                   save_results=True,
-                  default_amount=default_amount)
+                  default_amount=default_amount,
+                  max_training_size=max_training_size)
+
+
+# Plots the top and bottom weights, and saves them in the respective Multiyear folder
+def plot_top_and_bottom_weights(file_identifier):
+    # Get the dataframe
+    base_directory = f"Multiyear/{file_identifier}"
+    sorted_multiyear_weights = pd.read_csv(base_directory + '/sloped_combined_weights')
+
+    # Get the top 10 and bottom 10
+    top_10 = sorted_multiyear_weights[:10][::-1]
+    bottom_10 = sorted_multiyear_weights[-11:]
+
+    # Plot each individually
+    for weights, title in [(top_10, "Top"), (bottom_10, "Bottom")]:
+        # Extract keys and values from the dictionary
+        x = list(weights['Token'])
+        y = list(weights['Slope'])
+
+        # Plot the data
+        plt.bar(x, y)
+
+        # Set labels and title
+        plt.xlabel('Tokens', size=10)
+        plt.ylabel('Slopes')
+        plt.title(title + " 10 weights vs. slope")
+
+        # Rotate x-axis labels if needed
+        plt.xticks(rotation=30)
+
+        # Save the fig
+        plt.savefig(base_directory + "/" + title)
+        plt.clf()
 
 
 # I put everything in here because it's not worth it to make a new method
 if __name__ == '__main__':
-    keyword = 'nsfw'
+    keyword = 'porn'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
@@ -96,10 +148,15 @@ if __name__ == '__main__':
     lambda_value = 1e-05
     minimum_appearances_prevalence = 3  # Should always be prevalence, not minimum appearances
     default_amount = 0.02
+    max_training_size = 200000
 
     # The actual analysis
-    # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount)
+    # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size)
 
-    combine_multiyear_weights('nsfw_porn_1prevalence_1e-05lambda_augment')
+    # Process the data and analyze it
+    file_identifier = "porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000"
+    combine_multiyear_weights(file_identifier, start_year=0, normalize=True)
+    analyze_multiyear_weights(file_identifier)
 
-    analyze_multiyear_weights('nsfw_porn_1prevalence_1e-05lambda_augment')
+    # Plot the top weights
+    plot_top_and_bottom_weights(file_identifier)

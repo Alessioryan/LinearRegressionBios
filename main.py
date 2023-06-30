@@ -46,6 +46,10 @@ def construct_vocabulary(keyword, second_keyword, minimum_appearances, is_preval
         # Filter ones with too low of a prevalence
         year_prevalence = year_prevalence[year_prevalence["Prevalence"] >= minimum_appearances]
 
+        # TODO add a ngram option
+        # Remove all ngrams
+        year_prevalence = year_prevalence[~year_prevalence['Token'].str.contains(' ')]
+
         # Create a vocabulary out of this
         vocabulary = set(year_prevalence["Token"])
 
@@ -118,7 +122,9 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
 
 
 def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
-         minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None):
+         minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None,
+         max_training_size=-1):
+
     # TODO fix this later
     # Define global variables
     global bios
@@ -202,7 +208,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
     # If there is only one keyword and fifty_fifty is on, then get rid of enough bios so that it's actually 50/50
     if fifty_fifty:
-        #  TODO allow for two keyword fifty_fifty
+        # TODO allow for two keyword fifty_fifty
+        # TODO make sure this type of keyword finding covers the same tokenization as tokenize()
         keyword_regex = rf"\b{keyword}\b"
         contains_keyword = bios.str.contains(keyword_regex, regex=True)
         bios_with_keyword = bios[contains_keyword]
@@ -222,6 +229,15 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         ordered_vocabulary[token] = index
         token_lookup[index] = token
     # Order tokens alphabetically
+
+    # If we have too many bios, then we must filter some out randomly
+    # TODO Make this more precise
+    if max_training_size != -1 and len(bios) > max_training_size:
+        bios = bios.sample(n=max_training_size, replace=False, random_state=42)
+
+    # Find the percent of bios that contain the keyword
+    percent_contains = np.sum(bios.str.contains(rf"\b{keyword}\b")) / len(bios)
+    print(f'The percent of bios with {keyword} is {percent_contains}')
 
     # Create train/test split, 90% train, 10% test
     train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
@@ -247,7 +263,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
                       f'{"_fiftyfifty" if fifty_fifty else ""}' \
                       f'{lambda_value}lambda' \
                       f'{"_augment" if augment_predictions else ""}' \
-                      f'{"_onesaccuracy" if ones_accuracy else ""}'
+                      f'{"_onesaccuracy" if ones_accuracy else ""}' \
+                      f'{"_maxtrainingsize" + str(max_training_size) if max_training_size != -1 else ""}'
 
     if multiyear:
         file_identifier += f'/{year}'
@@ -332,6 +349,7 @@ if __name__ == '__main__':
     minimum_appearances_prevalence = 5
     multiyear = False
     default_amount = 0.0
+    max_training_size = -1
 
     main('Datasets/sampled_one_bio_per_year_2022.csv',
          keyword=keyword,
@@ -343,4 +361,5 @@ if __name__ == '__main__':
          minimum_appearances_prevalence=minimum_appearances_prevalence,
          multiyear=multiyear,
          save_results=True,
-         default_amount=default_amount)
+         default_amount=default_amount,
+         max_training_size=max_training_size)

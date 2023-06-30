@@ -4,8 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Worked with the hyperparameter testing">
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/porn__augment.json" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Add README.md information, add default_amount parameter, add accelerated vocabulary construction">
+      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/porn__augment_onesaccuracy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy.json" beforeDir="false" afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hyperparameter_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiyear.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiyear.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +65,10 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Datasets" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LinearRegressionBios" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,8 +155,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.hyperparameter_testing" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.hyperparameter_testing" />
         <item itemvalue="Python.multiyear" />
         <item itemvalue="Python.evaluation" />
       </list>
@@ -287,15 +307,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688142928723</updated>
     </task>
-    <task id="LOCAL-00020" summary="Worked with the hyperparameter testing">
-      <option name="closed" value="true" />
-      <created>1688149617500</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1688149617500</updated>
-    </task>
-    <option name="localTasksCounter" value="21" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -328,7 +340,6 @@
     <MESSAGE value="Some of these results are kinda sketchy" />
     <MESSAGE value="Added yearly checks, combined_weights works, but it's still finnicky. Tomorrow I'll do the word around seeing correlations and stuff" />
     <MESSAGE value="Add README.md information, add default_amount parameter, add accelerated vocabulary construction" />
-    <MESSAGE value="Worked with the hyperparameter testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked with the hyperparameter testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add README.md information, add default_amount parameter, add accelerated vocabulary construction" />
   </component>
 </project>
