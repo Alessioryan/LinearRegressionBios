@@ -55,7 +55,7 @@ def combine_multiyear_weights(file_identifier, start_year=0, normalize=True):
 
 
 # Analyze the combined weights
-def analyze_multiyear_weights(file_identifier, start_year=None):
+def analyze_multiyear_weights(file_identifier, degree_fit=1):
     # Get the dataframe
     base_directory = f"Multiyear/{file_identifier}"
     multiyear_weights = pd.read_csv(f'{base_directory}/combined_weights')
@@ -66,7 +66,7 @@ def analyze_multiyear_weights(file_identifier, start_year=None):
     print(f'There are {len(multiyear_weights)} non-na rows')
 
     # Save the non-NaN dataframe
-    multiyear_weights.to_csv(base_directory + '/combined_weights_nonNaN', index=False)
+    multiyear_weights.to_csv(base_directory + f'/combined_weights_nonNaN_{degree_fit}', index=False)
 
     # Convert column values to float64 and get rid of NaNs
     multiyear_weights.iloc[:, 1:] = multiyear_weights.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
@@ -76,7 +76,7 @@ def analyze_multiyear_weights(file_identifier, start_year=None):
     slopes = []
     for index, row in multiyear_weights.iterrows():
         weights = row[1:].astype(float)
-        slope = np.polyfit(years, weights, 1)[0]
+        slope = np.polyfit(years, weights, degree_fit)[0]
         slopes.append(slope)
     multiyear_weights['Slope'] = slopes
 
@@ -84,7 +84,7 @@ def analyze_multiyear_weights(file_identifier, start_year=None):
     sorted_multiyear_weights = multiyear_weights.sort_values('Slope', ascending=False)
 
     # Save the dataframe
-    sorted_multiyear_weights.to_csv(base_directory + '/sloped_combined_weights', index=False)
+    sorted_multiyear_weights.to_csv(base_directory + f'/sloped_combined_weights_{degree_fit}', index=False)
 
 
 # Run the multiyear analysis
@@ -107,10 +107,10 @@ def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accur
 
 
 # Plots the top and bottom weights, and saves them in the respective Multiyear folder
-def plot_top_and_bottom_weights(file_identifier):
+def plot_top_and_bottom_weights(file_identifier, degree_fit):
     # Get the dataframe
     base_directory = f"Multiyear/{file_identifier}"
-    sorted_multiyear_weights = pd.read_csv(base_directory + '/sloped_combined_weights')
+    sorted_multiyear_weights = pd.read_csv(base_directory + f'/sloped_combined_weights_{degree_fit}')
 
     # Get the top 10 and bottom 10
     top_10 = sorted_multiyear_weights[:10][::-1]
@@ -128,14 +128,49 @@ def plot_top_and_bottom_weights(file_identifier):
         # Set labels and title
         plt.xlabel('Tokens', size=10)
         plt.ylabel('Slopes')
-        plt.title(title + " 10 weights vs. slope")
+        plt.title(title + f" 10 weights vs. slope, degree {degree_fit}")
 
         # Rotate x-axis labels if needed
         plt.xticks(rotation=30)
 
         # Save the fig
-        plt.savefig(base_directory + "/" + title)
+        plt.savefig(f'{base_directory}/{title}_{degree_fit}')
         plt.clf()
+
+
+# Plots the words individually
+def plot_individually(file_identifier, degree_fit, words):
+
+    # Get the dataframe
+    base_directory = f"Multiyear/{file_identifier}"
+    sorted_multiyear_weights = pd.read_csv(base_directory + f'/sloped_combined_weights_{degree_fit}')
+
+    # Define the words
+    if len(words) == 0:
+        words = list(sorted_multiyear_weights[:2][::-1]['Token']) + list(sorted_multiyear_weights[-3:]['Token'])
+
+    # Filter rows based on 'Token' column
+    filtered_df = sorted_multiyear_weights[sorted_multiyear_weights['Token'].str.contains('|'.join(words))]
+
+    # Get the year values
+    year_columns = [column_name for column_name in filtered_df.columns if column_name.startswith('Weights_')]
+    years = [column_name[-4:] for column_name in year_columns]
+
+    # Extract columns for x-axis and y-axis
+    for word in words:
+        row = filtered_df.loc[filtered_df['Token'] == word]
+        weights = row[year_columns]
+        plt.scatter(years, weights, label=word)
+        plt.plot(years, weights.iloc[0], color='black')
+
+    # Plot the data with different colors for each word
+    plt.xlabel('Year')
+    plt.ylabel('Weight Value')
+    plt.legend()
+    plt.title('Weights for Selected Tokens')
+
+    # Show
+    plt.show()
 
 
 # I put everything in here because it's not worth it to make a new method
@@ -153,10 +188,14 @@ if __name__ == '__main__':
     # The actual analysis
     # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size)
 
-    # Process the data and analyze it
-    file_identifier = "porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000"
-    combine_multiyear_weights(file_identifier, start_year=0, normalize=True)
-    analyze_multiyear_weights(file_identifier)
+    # Process the data
+    file_identifier = "nsfw_3prevalence_1e-05lambda_augment_onesaccuracy"
+    combine_multiyear_weights(file_identifier, start_year=-1, normalize=True)
+
+    # Analyze the data
+    degree_fit = 2
+    analyze_multiyear_weights(file_identifier, degree_fit)
 
     # Plot the top weights
-    plot_top_and_bottom_weights(file_identifier)
+    plot_top_and_bottom_weights(file_identifier, degree_fit)
+    plot_individually(file_identifier, degree_fit, words=[])

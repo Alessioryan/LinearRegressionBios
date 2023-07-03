@@ -84,7 +84,7 @@ def fill_values(keyword, second_keyword, train_test_bios, X, Y):
 
 
 # Creates a prediction matrix
-def predict(keyword, second_keyword, W, X, Y, augment_predictions):
+def predict(second_keyword, W, X, Y, augment_predictions):
     predictions = np.zeros(shape=(Y.shape[0], ) )
     # Set the default value to -1 if there's a second word
     if second_keyword:
@@ -277,7 +277,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
     # Evaluate the accuracy of W on the test and train sets
     print('Calculating the predictions on the training set')
-    preds_train, raw_scores, threshold = predict(keyword, second_keyword, W, X, Y, augment_predictions)
+    preds_train, raw_scores, threshold = predict(second_keyword, W, X, Y, augment_predictions)
 
     # Save information in results
     save_directory = "Results" if not multiyear else 'Multiyear'
@@ -299,7 +299,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     X_test = np.zeros((test_bios.shape[0], len(vocabulary)))
     Y_test = np.zeros((test_bios.shape[0],))
     X_test, Y_test = fill_values(keyword, second_keyword, test_bios, X_test, Y_test)
-    preds_test, _, _ = predict(keyword, second_keyword, W, X_test, Y_test, augment_predictions)
+    preds_test, _, _ = predict(second_keyword, W, X_test, Y_test, augment_predictions)
     test_accuracy = find_accuracy(ones_accuracy, preds_test, test_bios, Y_test)
     test_accuracy_data = f'The test accuracy is {test_accuracy}\n'
     print(test_accuracy_data)
