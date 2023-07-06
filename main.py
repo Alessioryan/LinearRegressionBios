@@ -121,6 +121,7 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
     return accuracy
 
 
+# Returns a tuple (test_accuracy, train_accuracy)
 def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
          minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None,
          max_training_size=-1):
