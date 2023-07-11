@@ -124,7 +124,7 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
 # Returns a tuple (test_accuracy, train_accuracy)
 def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
          minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None,
-         max_training_size=-1):
+         max_training_size=-1, prefix_file_path=""):
 
     # TODO fix this later
     # Define global variables
@@ -281,7 +281,12 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     preds_train, raw_scores, threshold = predict(second_keyword, W, X, Y, augment_predictions)
 
     # Save information in results
-    save_directory = "Results" if not multiyear else 'Multiyear'
+    if prefix_file_path:
+        save_directory = prefix_file_path
+    elif multiyear:
+        save_directory = "Multiyear"
+    else:
+        save_directory = "Results"
     if save_results:
         os.makedirs(f'{save_directory}/{file_identifier}', exist_ok=True)
         np.savetxt(f'{save_directory}/{file_identifier}/W', W, delimiter=',', fmt='%f')
@@ -324,6 +329,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data]
         with open(f'{save_directory}/{file_identifier}/relevant_data', "w") as file:
             file.writelines("\n".join(relevant_data))
+        with open(f'{save_directory}/{file_identifier}/relevant_data_json', "w") as file:
+            json.dump([train_accuracy, test_accuracy, threshold], file)
 
         # Save the weights with their definitions
         weights_with_tokens = pd.DataFrame({
@@ -341,18 +348,18 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'porn'
+    keyword = 'views'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
     second_keyword = None
-    lambda_value = 10**(-7)
-    minimum_appearances_prevalence = 5
+    lambda_value = 10**(-5)
+    minimum_appearances_prevalence = 3
     multiyear = False
-    default_amount = 0.0
-    max_training_size = -1
+    default_amount = 0.02
+    max_training_size = 200000
 
-    main('Datasets/sampled_one_bio_per_year_2022.csv',
+    main('Datasets/one_bio_per_year/one_bio_per_year_2022.csv',
          keyword=keyword,
          augment_predictions=augment_predictions,
          fifty_fifty=fifty_fifty,
@@ -363,4 +370,5 @@ if __name__ == '__main__':
          multiyear=multiyear,
          save_results=True,
          default_amount=default_amount,
-         max_training_size=max_training_size)
+         max_training_size=max_training_size,
+         prefix_file_path="Miscellaneous")
