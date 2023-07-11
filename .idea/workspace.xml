@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Add predictability.py">
-      <change afterPath="$PROJECT_DIR$/Predictability/nsfw_1e-05lambda_3minprevalence_0.02defaultamount_200000maxtrainingsize" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Predictability/the_1e-05lambda_3minprevalence_0.02defaultamount_200000maxtrainingsize" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Last commit that works pre-parallelized">
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/information_string" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/results" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/unhandled_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictability_10000_script.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/predictability.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictability.py" afterDir="false" />
@@ -354,7 +365,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688682323647</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Last commit that works pre-parallelized">
+      <created>1689045366744</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1689045366744</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -393,6 +411,7 @@
     <MESSAGE value="Add graphing for hyperparameter and multiyear" />
     <MESSAGE value="Just commiting the older files" />
     <MESSAGE value="Add predictability.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add predictability.py" />
+    <MESSAGE value="Last commit that works pre-parallelized" />
+    <option name="LAST_COMMIT_MESSAGE" value="Last commit that works pre-parallelized" />
   </component>
 </project>

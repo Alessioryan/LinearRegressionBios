@@ -348,7 +348,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'views'
+    keyword = 'nsfw'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
@@ -371,4 +371,4 @@ if __name__ == '__main__':
          save_results=True,
          default_amount=default_amount,
          max_training_size=max_training_size,
-         prefix_file_path="Miscellaneous")
+         prefix_file_path="")

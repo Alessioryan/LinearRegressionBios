@@ -4,6 +4,8 @@ import main
 import json
 import random
 import os
+import concurrent.futures
+from functools import partial
 
 def find_words_with_similar_prevalence(keyword, year, leeway=0, max_tokens=-1, top_tokens=-1):
     # You shouldn't run this code with top tokens and max_tokens, doesn't really make sense
@@ -49,6 +51,41 @@ def find_words_with_similar_prevalence(keyword, year, leeway=0, max_tokens=-1, t
     return similar_prevalence_tokens
 
 
+# Helper function for parallelizing
+def execute_main(token, year, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size, file_prefix):
+    # Get the file that it would be stored in
+    token_file_path = f'{token}_' \
+                      f'{minimum_appearances_prevalence}prevalence_' \
+                      f'{lambda_value}lambda_' \
+                      f'augment_' \
+                      f'onesaccuracy' \
+                      f'{"_maxtrainingsize" + str(max_training_size) if max_training_size != -1 else ""}'
+    directory_path = os.path.join(file_prefix, token_file_path)
+    print(f"Checking if the file already exists at {directory_path}")
+    if os.path.exists(directory_path) and os.path.isdir(directory_path):
+        print(f"Token exists at {directory_path} \n")
+        # There definitely should be a JSON file called relevant_data_json
+        # If there isn't, throw an error I'm not going to try to catch it
+        token_file_path = os.path.join(directory_path, 'relevant_data_json')
+        with open(token_file_path, 'r') as file:
+            token_data = json.load(file)
+        accuracies.append((token, (token_data[1], token_data[0])))
+    else:
+        main.main(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv',
+                  keyword=token,
+                  augment_predictions=True,
+                  fifty_fifty=False,
+                  ones_accuracy=True,
+                  second_keyword=None,
+                  lambda_value=lambda_value,
+                  minimum_appearances_prevalence=minimum_appearances_prevalence,
+                  multiyear=False,
+                  save_results=True,
+                  default_amount=default_amount,
+                  max_training_size=max_training_size,
+                  prefix_file_path=file_prefix)
+
+
 # Main code to run
 if __name__ == '__main__':
     keyword = 'nsfw'
@@ -59,7 +96,7 @@ if __name__ == '__main__':
     year = 2022
 
     # Find words with similar prevalences given a year
-    top_tokens = 2
+    top_tokens = 3
     leeway = 0  # Default 0
     max_tokens = -1  # Default -1
     similar_prevalence_tokens = find_words_with_similar_prevalence(keyword, year, leeway=leeway, max_tokens=max_tokens, top_tokens=top_tokens)
@@ -80,43 +117,63 @@ if __name__ == '__main__':
     print('Calculating the accuracies')
     accuracies = []
     unhandled_tokens = set()
-    for token in similar_prevalence_tokens:
-        # Get the file that it would be stored in
-        token_file_path = f'{token}_' \
-                          f'{minimum_appearances_prevalence}prevalence_' \
-                          f'{lambda_value}lambda_' \
-                          f'augment_' \
-                          f'onesaccuracy' \
-                          f'{"_maxtrainingsize" + str(max_training_size) if max_training_size != -1 else ""}'
-        directory_path = os.path.join(file_prefix, token_file_path)
-        print(f"Checking if the file already exists at {directory_path}")
-        if os.path.exists(directory_path) and os.path.isdir(directory_path):
-            print(f"Token exists at {directory_path} \n")
-            # There definitely should be a JSON file called relevant_data_json
-            # If there isn't, throw an error I'm not going to try to catch it
-            token_file_path = os.path.join(directory_path, 'relevant_data_json')
-            with open(token_file_path, 'r') as file:
-                token_data = json.load(file)
-            accuracies.append( (token, (token_data[1], token_data[0]) ) )
-        else:
-            print(f'Calculating the accuracies for {token}')
-            try:
-                accuracies.append( (token,
-                                   main.main(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv',
-                                             keyword=token,
-                                             augment_predictions=True,
-                                             fifty_fifty=False,
-                                             ones_accuracy=True,
-                                             second_keyword=None,
-                                             lambda_value=lambda_value,
-                                             minimum_appearances_prevalence=minimum_appearances_prevalence,
-                                             multiyear=False,
-                                             save_results=True,
-                                             default_amount=default_amount,
-                                             max_training_size=max_training_size,
-                                             prefix_file_path=file_prefix ) ) )
-            except:
-                unhandled_tokens.add(token)
+    parallelize = True
+    if parallelize:
+        # Create a ThreadPoolExecutor with the desired number of threads (28 in our case)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=28) as executor:
+            # Define the function to be executed in parallel using the executor.map method
+            process_tokens = partial(execute_main, year=year, lambda_value=lambda_value,
+                                     minimum_appearances_prevalence=minimum_appearances_prevalence,
+                                     default_amount=default_amount, max_training_size=max_training_size,
+                                     file_prefix=file_prefix)
+
+            # Submit the tasks to the executor and retrieve the results
+            results = executor.map(process_tokens, similar_prevalence_tokens)
+
+            # Process the results as they become available
+            for token, result in zip(similar_prevalence_tokens, results):
+                if result is not None:
+                    accuracies.append((token, result))
+                else:
+                    unhandled_tokens.add(token)
+    else:
+        for token in similar_prevalence_tokens:
+            # Get the file that it would be stored in
+            token_file_path = f'{token}_' \
+                              f'{minimum_appearances_prevalence}prevalence_' \
+                              f'{lambda_value}lambda_' \
+                              f'augment_' \
+                              f'onesaccuracy' \
+                              f'{"_maxtrainingsize" + str(max_training_size) if max_training_size != -1 else ""}'
+            directory_path = os.path.join(file_prefix, token_file_path)
+            print(f"Checking if the file already exists at {directory_path}")
+            if os.path.exists(directory_path) and os.path.isdir(directory_path):
+                print(f"Token exists at {directory_path} \n")
+                # There definitely should be a JSON file called relevant_data_json
+                # If there isn't, throw an error I'm not going to try to catch it
+                token_file_path = os.path.join(directory_path, 'relevant_data_json')
+                with open(token_file_path, 'r') as file:
+                    token_data = json.load(file)
+                accuracies.append( (token, (token_data[1], token_data[0]) ) )
+            else:
+                print(f'Calculating the accuracies for {token}')
+                try:
+                    accuracies.append( (token,
+                                       main.main(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv',
+                                                 keyword=token,
+                                                 augment_predictions=True,
+                                                 fifty_fifty=False,
+                                                 ones_accuracy=True,
+                                                 second_keyword=None,
+                                                 lambda_value=lambda_value,
+                                                 minimum_appearances_prevalence=minimum_appearances_prevalence,
+                                                 multiyear=False,
+                                                 save_results=True,
+                                                 default_amount=default_amount,
+                                                 max_training_size=max_training_size,
+                                                 prefix_file_path=file_prefix ) ) )
+                except:
+                    unhandled_tokens.add(token)
     # Sort them by their test accuracies
     sorted_accuracies = sorted(accuracies, key=lambda x: x[1][0], reverse=True)
     # Save them in a file, open the file in write mode
