@@ -5,10 +5,10 @@ import numpy as np
 if __name__ == '__main__':
     # Plots the accuracies against the selected hyperparameter
     # 0 for lambda, 1 for appearances, 2 for default value
-    hyperparameter = 1
+    hyperparameter = 2
 
     # File name here
-    file_name = 'porn__augment_onesaccuracy_(1e-05, 1e-05, 1, 1, 6, 6, 0.1, 0.1, 1).json'
+    file_name = 'nsfw__augment_onesaccuracy_(1e-05, 1e-05, 1, 3, 3, 1, 0.02, 0.1, 6).json'
     file_path = file_name
 
     # Read JSON file

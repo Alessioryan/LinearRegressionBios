@@ -189,13 +189,13 @@ if __name__ == '__main__':
     # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size)
 
     # Process the data
-    file_identifier = "nsfw_3prevalence_1e-05lambda_augment_onesaccuracy"
+    file_identifier = "nsfw_porn_1prevalence_1e-05lambda_augment"
     combine_multiyear_weights(file_identifier, start_year=-1, normalize=True)
 
     # Analyze the data
-    degree_fit = 2
+    degree_fit = 1
     analyze_multiyear_weights(file_identifier, degree_fit)
 
     # Plot the top weights
     plot_top_and_bottom_weights(file_identifier, degree_fit)
-    plot_individually(file_identifier, degree_fit, words=[])
+    # plot_individually(file_identifier, degree_fit, words=[])

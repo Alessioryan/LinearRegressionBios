@@ -4,29 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Add README.md information, add default_amount parameter, add accelerated vocabulary construction">
-      <change afterPath="$PROJECT_DIR$/Hyperparameter tunings/porn__augment_onesaccuracy.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/nsfw__sampled5prevalence_1e-07lambda_augment_onesaccuracy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/porn__sampled5prevalence_1e-07lambda_augment_onesaccuracy" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Last commit that works pre-parallelized">
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/information_string" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/results" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Predictability/top3_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/unhandled_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/#_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictability_10000_script.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy.json" beforeDir="false" afterPath="$PROJECT_DIR$/Hyperparameter tunings/nsfw__augment_onesaccuracy.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hyperparameter_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multiyear.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiyear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictability.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictability.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +54,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -69,27 +63,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="LinearRegressionBios" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="hyperparameter_testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LinearRegressionBios" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,12 +126,55 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="plot_test_train_accuracy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hyperparameter tunings" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hyperparameter tunings/plot_test_train_accuracy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="predictability" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/predictability.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.hyperparameter_testing" />
+        <item itemvalue="Python.predictability" />
+        <item itemvalue="Python.plot_test_train_accuracy" />
         <item itemvalue="Python.multiyear" />
-        <item itemvalue="Python.evaluation" />
+        <item itemvalue="Python.hyperparameter_testing" />
       </list>
     </recent_temporary>
   </component>
@@ -307,7 +323,56 @@
       <option name="project" value="LOCAL" />
       <updated>1688142928723</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Work on multiyear.py, commit for updated run_multiyear_analysis">
+      <created>1688151092428</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1688151092428</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Another commit">
+      <created>1688151232665</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1688151232665</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add automatic plotting, max_training_size, and remove ngrams for now">
+      <created>1688156682362</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1688156682362</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add graphing for hyperparameter and multiyear">
+      <created>1688408647652</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1688408647652</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Just commiting the older files">
+      <created>1688659429332</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1688659429332</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Add predictability.py">
+      <created>1688682323647</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1688682323647</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Last commit that works pre-parallelized">
+      <created>1689045366744</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1689045366744</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -340,6 +405,13 @@
     <MESSAGE value="Some of these results are kinda sketchy" />
     <MESSAGE value="Added yearly checks, combined_weights works, but it's still finnicky. Tomorrow I'll do the word around seeing correlations and stuff" />
     <MESSAGE value="Add README.md information, add default_amount parameter, add accelerated vocabulary construction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add README.md information, add default_amount parameter, add accelerated vocabulary construction" />
+    <MESSAGE value="Work on multiyear.py, commit for updated run_multiyear_analysis" />
+    <MESSAGE value="Another commit" />
+    <MESSAGE value="Add automatic plotting, max_training_size, and remove ngrams for now" />
+    <MESSAGE value="Add graphing for hyperparameter and multiyear" />
+    <MESSAGE value="Just commiting the older files" />
+    <MESSAGE value="Add predictability.py" />
+    <MESSAGE value="Last commit that works pre-parallelized" />
+    <option name="LAST_COMMIT_MESSAGE" value="Last commit that works pre-parallelized" />
   </component>
 </project>

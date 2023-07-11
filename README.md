@@ -23,3 +23,13 @@ Main.main's parameters:
   - If -1, then runs on all the data. 
   - If the amount of bios that are available given other parameters is less than max_training size, runs on all
   - Otherwise, runs on max_training_size, randomly selecting from all the filtered bios until we're at that proportion
+- prefix_file_path = (by default ""), puts that prefix on all the file paths it saves to
+
+
+TODOs:
+- Check to see if certain semantic groups of keywords are good or bad predictors of a certain word
+- Cross year stuff
+- Make everything compatible with ngrams
+- Replace all string combining instances to build file paths with f'directory/{file_name}' etc. with os.join
+  - IF YOU ARE WORKING ON a Windows, system and I haven't done this, the code won't work
+  - Please open a Github issue and I'll get to it
