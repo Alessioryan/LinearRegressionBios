@@ -168,16 +168,16 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         bios = file_path[0]
         year = file_path[1]
 
-    # If there is a default amount, then filter some of the data
-    if default_amount is not None:
-        print(f'Filtering by keyword for {keyword}')
-        # Get the bios with and without the keyword
-        keyword_regex = rf"\b{keyword}\b"  # TODO does this capture the same keywords as tokenization?
-        bios_with_keyword = bios[bios.str.contains(keyword_regex, regex=True)]
-        bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
+    print(f'Filtering by keyword for {keyword}')
+    # Get the bios with and without the keyword
+    keyword_regex = rf"\b{keyword}\b"  # TODO does this capture the same keywords as tokenization?
+    bios_with_keyword = bios[bios.str.contains(keyword_regex, regex=True)]
+    bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
 
+    # Filter based on default amount but not max training size
+    if default_amount is not None and (max_training_size == -1 and len(bios) > max_training_size):
         print(f'Filtering bios to get to default amount for {keyword}')
-        # EMILY - GETS THE 2% OF BIOS WITH THE KEYWORD
+        # If there are fewer bios with the keyword than there should be to get to the default amount
         if len(bios_with_keyword) / len(bios) < default_amount:
             total_required_bios = int(len(bios_with_keyword) / default_amount)
             total_without_keyword_bios = total_required_bios - len(bios_with_keyword)
@@ -185,23 +185,78 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
             # Sample the right amount of bios
             sampled_bios_without_keyword = bios_without_keyword.sample(n=total_without_keyword_bios, replace=False, random_state=42)
 
+            # Create train/test split
+            train_bios_without_keyword, test_bios_without_keyword = train_test_split(sampled_bios_without_keyword, test_size=0.1, random_state=42)
+            train_bios_with_keyword, test_bios_with_keyword = train_test_split(bios_with_keyword, test_size=0.1, random_state=42)
+
+            train_bios = pd.concat([train_bios_with_keyword, train_bios_without_keyword])
+            test_bios = pd.concat([test_bios_with_keyword, test_bios_without_keyword])
+
+
             # Concatenate the shuffled dataframe
             bios = pd.concat([bios_with_keyword, sampled_bios_without_keyword], ignore_index=True)
 
             # Shuffle the dataframe
             bios = bios.sample(frac=1, random_state=42)
-        elif len(bios_without_keyword) / len(bios) < default_amount:
-            total_required_bios = int(len(bios_without_keyword) / default_amount)
+
+        # If there are fewer bios without the keyword than there should be to get to the default amount
+        elif len(bios_without_keyword) / len(bios) < 1 - default_amount:
+            total_required_bios = int(len(bios_without_keyword) / (1 - default_amount))
             total_with_keyword_bios = total_required_bios - len(bios_without_keyword)
 
             # Sample the right amount of bios
-            sampled_bios_with_keyword = bios_without_keyword.sample(n=total_with_keyword_bios, replace=False, random_state=42)
+            sampled_bios_with_keyword = bios_with_keyword.sample(n=total_with_keyword_bios, replace=False, random_state=42)
+
+            # Create train/test split
+            train_bios_without_keyword, test_bios_without_keyword = train_test_split(bios_without_keyword,
+                                                                                     test_size=0.1, random_state=42)
+            train_bios_with_keyword, test_bios_with_keyword = train_test_split(sampled_bios_with_keyword,
+                                                                               test_size=0.1, random_state=42)
+
+            train_bios = pd.concat([train_bios_with_keyword, train_bios_without_keyword])
+            test_bios = pd.concat([test_bios_with_keyword, test_bios_without_keyword])
 
             # Concatenate the shuffled dataframe
             bios = pd.concat([bios_without_keyword, sampled_bios_with_keyword], ignore_index=True)
 
             # Shuffle the dataframe
             bios = bios.sample(frac=1, random_state=42)
+    # Filter based on max training size and default amount
+    elif default_amount is not None and max_training_size != -1 and len(bios) > max_training_size:
+        if len(bios_with_keyword) > default_amount * max_training_size:
+            total_with_keyword_bios = default_amount * max_training_size
+            # Sample the right amount of bios
+            sampled_bios_with_keyword = bios_with_keyword.sample(n=int(total_with_keyword_bios), replace=False,
+                                                                    random_state=42)
+            train_bios_with_keyword, test_bios_with_keyword = train_test_split(sampled_bios_with_keyword,
+                                                                               test_size=0.1, random_state=42)
+        else:
+            raise Exception(f"There are not enough bios with the keyword for the parameters you set. There are {len(bios_with_keyword)} bios with the keyword. Your parameters require {int(default_amount * max_training_size)} bios with the keyword")
+        if len(bios_without_keyword) > (1 - default_amount) * max_training_size:
+            total_without_keyword_bios = (1 - default_amount) * max_training_size
+            # Sample the right amount of bios
+            sampled_bios_without_keyword = bios_without_keyword.sample(n=int(total_without_keyword_bios), replace=False,
+                                                                       random_state=42)
+            # Create train/test split
+            train_bios_without_keyword, test_bios_without_keyword = train_test_split(sampled_bios_without_keyword,
+                                                                                     test_size=0.1, random_state=42)
+        else:
+            raise Exception(f"There are not enough bios without the keyword for the parameters you set. There are {len(bios_without_keyword)} bios with the keyword. Your parameters require {int((1 - default_amount) * max_training_size)} bios with the keyword")
+        train_bios = pd.concat([train_bios_with_keyword, train_bios_without_keyword])
+        test_bios = pd.concat([test_bios_with_keyword, test_bios_without_keyword])
+        # Concatenate the shuffled dataframe
+        bios = pd.concat([sampled_bios_without_keyword, sampled_bios_with_keyword], ignore_index=True)
+    # Filter based on max training size but not default amount
+    elif default_amount is None and max_training_size != -1 and len(bios) > max_training_size:
+        bios = bios.sample(n=max_training_size, replace=False, random_state=42)
+        # Create train/test split
+        train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
+    elif len(bios) < max_training_size:
+        raise Exception(f"There are {len(bios)} bios and you set the max training size to {max_training_size}. Reduce your max training size.")
+    # If neither max training size nor default amount are set, use all the bios
+    else:
+        # Create train/test split
+        train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
 
     # If there is a second keyword, filter the data
     if second_keyword:
@@ -240,19 +295,9 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         token_lookup[index] = token
     # Order tokens alphabetically
 
-    # If we have too many bios, then we must filter some out randomly
-    # TODO Make this more precise
-    # EMILY - GET THE 200,000
-    if max_training_size != -1 and len(bios) > max_training_size:
-        bios = bios.sample(n=max_training_size, replace=False, random_state=42)
-
     # Find the percent of bios that contain the keyword
     percent_contains = np.sum(bios.str.contains(rf"\b{keyword}\b")) / len(bios)
     print(f'The percent of bios with {keyword} is {percent_contains}')
-
-    # Create train/test split, 90% train, 10% test
-    # EMILY - 90% 10% split
-    train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
 
     # Create empty X with bias, create empty Y
     # X is the length of the vocabulary (without keywords) + 1 for the bias
@@ -381,7 +426,7 @@ if __name__ == '__main__':
          lambda_value=lambda_value,
          minimum_appearances_prevalence=minimum_appearances_prevalence,
          multiyear=multiyear,
-         save_results=True,
+         save_results=False,
          default_amount=default_amount,
          max_training_size=max_training_size,
          prefix_file_path="")

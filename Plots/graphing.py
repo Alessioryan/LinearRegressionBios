@@ -26,7 +26,6 @@ y_values = polynomial(x_values)
 # Plot the polynomial curve
 plt.plot(x_values, y_values, color='red', label='Best Fit Curve (Degree 2)')
 
-
 # Set labels for the x-axis and y-axis
 plt.xlabel('Percent Keyword')
 plt.ylabel('Test Accuracy')
