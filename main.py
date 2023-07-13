@@ -177,6 +177,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
 
         print(f'Filtering bios to get to default amount for {keyword}')
+        # EMILY - GETS THE 2% OF BIOS WITH THE KEYWORD
         if len(bios_with_keyword) / len(bios) < default_amount:
             total_required_bios = int(len(bios_with_keyword) / default_amount)
             total_without_keyword_bios = total_required_bios - len(bios_with_keyword)
@@ -241,6 +242,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
     # If we have too many bios, then we must filter some out randomly
     # TODO Make this more precise
+    # EMILY - GET THE 200,000
     if max_training_size != -1 and len(bios) > max_training_size:
         bios = bios.sample(n=max_training_size, replace=False, random_state=42)
 
@@ -249,6 +251,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     print(f'The percent of bios with {keyword} is {percent_contains}')
 
     # Create train/test split, 90% train, 10% test
+    # EMILY - 90% 10% split
     train_bios, test_bios = train_test_split(bios, test_size=0.1, random_state=42)
 
     # Create empty X with bias, create empty Y
