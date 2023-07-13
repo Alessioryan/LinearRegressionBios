@@ -52,7 +52,7 @@ def find_words_with_similar_prevalence(keyword, year, leeway=0, max_tokens=-1, t
 
 
 # Helper function for parallelizing
-def execute_main(token, year, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size, file_prefix):
+def execute_main(token, year, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size, file_prefix, file_path):
     # Get the file that it would be stored in
     token_file_path = f'{token}_' \
                       f'{minimum_appearances_prevalence}prevalence_' \
@@ -71,19 +71,19 @@ def execute_main(token, year, lambda_value, minimum_appearances_prevalence, defa
             token_data = json.load(file)
         accuracies.append((token, (token_data[1], token_data[0])))
     else:
-        main.main(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv',
-                  keyword=token,
-                  augment_predictions=True,
-                  fifty_fifty=False,
-                  ones_accuracy=True,
-                  second_keyword=None,
-                  lambda_value=lambda_value,
-                  minimum_appearances_prevalence=minimum_appearances_prevalence,
-                  multiyear=False,
-                  save_results=True,
-                  default_amount=default_amount,
-                  max_training_size=max_training_size,
-                  prefix_file_path=file_prefix)
+        accuracies.append(main.main(file_path,
+                          keyword=token,
+                          augment_predictions=True,
+                          fifty_fifty=False,
+                          ones_accuracy=True,
+                          second_keyword=None,
+                          lambda_value=lambda_value,
+                          minimum_appearances_prevalence=minimum_appearances_prevalence,
+                          multiyear=False,
+                          save_results=True,
+                          default_amount=default_amount,
+                          max_training_size=max_training_size,
+                          prefix_file_path=file_prefix) )
 
 
 # Main code to run
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     year = 2022
 
     # Find words with similar prevalences given a year
-    top_tokens = 3
+    top_tokens = 5
     leeway = 0  # Default 0
     max_tokens = -1  # Default -1
     similar_prevalence_tokens = find_words_with_similar_prevalence(keyword, year, leeway=leeway, max_tokens=max_tokens, top_tokens=top_tokens)
@@ -114,18 +114,29 @@ if __name__ == '__main__':
     print(f'Final data will be saved in {os.path.join("Predictability", file_path)} \n')
 
     # See their test accuracy with the default hyperparameters
-    print('Calculating the accuracies')
+    print('Calculating the accuracies for all tokens.')
     accuracies = []
     unhandled_tokens = set()
     parallelize = True
     if parallelize:
+        # THIS PARALLELIZE DOESN'T INCLUDE YEAR, it uses the alternative file_path system
+        print('Reading the dataset before paralellizing.')
+        main_dataframe = pd.read_csv(f'Datasets/one_bio_per_year/one_bio_per_year_{year}.csv', header=None)
+        column_names = ['user_id_str', 'bio', 'location', 'name', 'screen_name', 'protected',
+                        'verified', 'followers_count', 'friends_count', 'statuses_count', 'created_at',
+                        'default_profile', 'us_day_YYYY_MM_DD', 'timestamp_ms']
+        main_dataframe.columns = column_names
+        bios = main_dataframe['bio'].dropna()  # Drop nan
+        print(f'There are {len(bios)} total bios')
+        joint_file_path = (bios, 2022)
+
         # Create a ThreadPoolExecutor with the desired number of threads (28 in our case)
         with concurrent.futures.ThreadPoolExecutor(max_workers=28) as executor:
             # Define the function to be executed in parallel using the executor.map method
             process_tokens = partial(execute_main, year=year, lambda_value=lambda_value,
                                      minimum_appearances_prevalence=minimum_appearances_prevalence,
                                      default_amount=default_amount, max_training_size=max_training_size,
-                                     file_prefix=file_prefix)
+                                     file_prefix=file_prefix, file_path=joint_file_path)
 
             # Submit the tasks to the executor and retrieve the results
             results = executor.map(process_tokens, similar_prevalence_tokens)

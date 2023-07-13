@@ -2,6 +2,10 @@
 
 Main.main's parameters:
 - file_path = the file you want to read. Include "Datasets/" in it, "Datasets/" is in .gitignore
+  - Generally, you can pass in a string to this
+  - Alternatively, you can pass in a TUPLE
+    - The first element is a dataframe
+    - The second element is the year of the dataframe
 - keyword = the keyword you want to look at
 - augment_predictions = if p is the fraction of bios with the keyword, then if augment_predictions = True, the model will predict that there are p% bios with the keyword when evaluating accuracy. If False, then it will predict a score of >0.5 contains the keyword for one keyword and >0 for two keywords
 - fifty_fifty = if true, then half the training and test data will contain the keyword. Doesn't work for two keywords yet, and assumes the keyword appears in less than half the bios in the input dataframe
