@@ -1,5 +1,5 @@
-The train accuracy is 0.4754583244510765
+The train accuracy is 0.3066501035196687
 
-The test accuracy is 0.4527456987980203
+The test accuracy is 0.27856207247853293
 
-The threshold for being selected is a score of 0.40812029434172714
+The threshold for being selected is a score of 0.6077137686830709
