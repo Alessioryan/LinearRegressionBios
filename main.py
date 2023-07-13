@@ -163,7 +163,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         bios = data_frame['bio'].dropna()  # Drop nan
         print(f'There are {len(bios)} total bios')
     else:
-        print(f'Dataframe already supplied for keyword {keyword}.')
+        print(f'Dataframe already supplied for keyword {keyword}')
         # It's gotta be a tuple with the dataframe and the year
         bios = file_path[0]
         year = file_path[1]
@@ -313,9 +313,10 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     lambda_I = lambda_value * np.identity(len(vocabulary))
 
     # Define the unique file identifier
-    # file_path_identifier = "_sampled" if "sampled" in file_path else "" and isinstance(file_path, str)
-    file_identifier = f'{keyword}_' \
-                      f'{second_keyword + "_" if second_keyword else ""}' \
+    file_keyword = keyword.replace('/', 'BACKSLASH')
+    file_second_keyword = second_keyword.replace('/', 'BACKSLASH') + "_" if second_keyword else ""
+    file_identifier = f'{file_keyword}_' \
+                      f'{file_second_keyword}' \
                       f'{"_sampled" if (isinstance(file_path, str) and "sampled" in file_path) else ""}' \
                       f'{minimum_appearances_prevalence}{"prevalence" if is_prevalence else "appearances"}_' \
                       f'{"_fiftyfifty" if fifty_fifty else ""}' \

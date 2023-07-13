@@ -54,7 +54,8 @@ def find_words_with_similar_prevalence(keyword, year, leeway=0, max_tokens=-1, t
 # Helper function for parallelizing
 def execute_main(token, year, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size, file_prefix, file_path):
     # Get the file that it would be stored in
-    token_file_path = f'{token}_' \
+    file_keyword = token.replace('/', 'BACKSLASH')
+    token_file_path = f'{file_keyword}_' \
                       f'{minimum_appearances_prevalence}prevalence_' \
                       f'{lambda_value}lambda_' \
                       f'augment_' \
@@ -71,7 +72,7 @@ def execute_main(token, year, lambda_value, minimum_appearances_prevalence, defa
             token_data = json.load(file)
         accuracies.append((token, (token_data[1], token_data[0])))
     else:
-        accuracies.append(main.main(file_path,
+        accuracies.append((token, main.main(file_path,
                           keyword=token,
                           augment_predictions=True,
                           fifty_fifty=False,
@@ -83,7 +84,7 @@ def execute_main(token, year, lambda_value, minimum_appearances_prevalence, defa
                           save_results=True,
                           default_amount=default_amount,
                           max_training_size=max_training_size,
-                          prefix_file_path=file_prefix) )
+                          prefix_file_path=file_prefix) ) )
 
 
 # Main code to run
@@ -105,7 +106,8 @@ if __name__ == '__main__':
 
     # Get the file info
     file_prefix = "All_Tokens" if top_tokens != -1 else "Miscellaneous"
-    file_path = f'{keyword if top_tokens == -1 else "top" + str(top_tokens)}_' \
+    file_keyword = keyword.replace('/', 'BACKSLASH')
+    file_path = f'{file_keyword if top_tokens == -1 else "top" + str(top_tokens)}_' \
                 f'{year}year_' \
                 f'{lambda_value}lambda_' \
                 f'{minimum_appearances_prevalence}minprevalence_' \
@@ -186,6 +188,7 @@ if __name__ == '__main__':
                 except:
                     unhandled_tokens.add(token)
     # Sort them by their test accuracies
+    print(f'The accuracies are {accuracies}')
     sorted_accuracies = sorted(accuracies, key=lambda x: x[1][0], reverse=True)
     # Save them in a file, open the file in write mode
     # Create the directory if it doesn't exist

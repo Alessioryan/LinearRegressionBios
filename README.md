@@ -37,3 +37,4 @@ TODOs:
 - Replace all string combining instances to build file paths with f'directory/{file_name}' etc. with os.join
   - IF YOU ARE WORKING ON a Windows, system and I haven't done this, the code won't work
   - Please open a Github issue and I'll get to it
+  - Also, the naming adds single quotes around keywords that start with "/"
