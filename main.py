@@ -143,32 +143,40 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     if default_amount is not None:
         assert not ( (default_amount > 1) or (default_amount < 0) )
 
-    # Find the year and state that you're working on that year
-    year = file_path[-8:-4]
-    if multiyear:
-        print(f'Working with year {year}')
+    # If you pass in a string, behave as normal:
+    if isinstance(file_path, str):
+        # Find the year and state that you're working on that year
+        year = file_path[-8:-4]
+        if multiyear:
+            print(f'Working with year {year}')
 
-    # Get the data
-    print('Reading the input file')
-    if 'sampled' not in file_path:
-        data_frame = pd.read_csv(file_path, header=None)
-        column_names = ['user_id_str', 'bio', 'location', 'name', 'screen_name', 'protected',
-                        'verified', 'followers_count', 'friends_count', 'statuses_count', 'created_at',
-                        'default_profile', 'us_day_YYYY_MM_DD', 'timestamp_ms']
-        data_frame.columns = column_names
+        # Get the data
+        print('Reading the input file')
+        if 'sampled' not in file_path:
+            data_frame = pd.read_csv(file_path, header=None)
+            column_names = ['user_id_str', 'bio', 'location', 'name', 'screen_name', 'protected',
+                            'verified', 'followers_count', 'friends_count', 'statuses_count', 'created_at',
+                            'default_profile', 'us_day_YYYY_MM_DD', 'timestamp_ms']
+            data_frame.columns = column_names
+        else:
+            data_frame = pd.read_csv(file_path)
+        bios = data_frame['bio'].dropna()  # Drop nan
+        print(f'There are {len(bios)} total bios')
     else:
-        data_frame = pd.read_csv(file_path)
-    bios = data_frame['bio'].dropna()  # Drop nan
-    print(f'There are {len(bios)} total bios')
+        print(f'Dataframe already supplied for keyword {keyword}.')
+        # It's gotta be a tuple with the dataframe and the year
+        bios = file_path[0]
+        year = file_path[1]
 
     # If there is a default amount, then filter some of the data
     if default_amount is not None:
+        print(f'Filtering by keyword for {keyword}')
         # Get the bios with and without the keyword
         keyword_regex = rf"\b{keyword}\b"  # TODO does this capture the same keywords as tokenization?
         bios_with_keyword = bios[bios.str.contains(keyword_regex, regex=True)]
         bios_without_keyword = bios[~bios.str.contains(keyword_regex, regex=True)]
 
-        # If the amount of bios with the keyword is less than default amount, then we actually do stuff
+        print(f'Filtering bios to get to default amount for {keyword}')
         if len(bios_with_keyword) / len(bios) < default_amount:
             total_required_bios = int(len(bios_with_keyword) / default_amount)
             total_without_keyword_bios = total_required_bios - len(bios_with_keyword)
@@ -218,7 +226,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         same_size_no_keyword = bios_without_keyword.sample(n=len(bios_with_keyword), replace=False, random_state=42)
         combined_bios = pd.concat([bios_with_keyword, same_size_no_keyword], ignore_index=True)
         bios = combined_bios.sample(frac=1, random_state=42).reset_index(drop=True)
-    print(f'\n -----> There are {len(bios)} relevant bios')
+    print(f'\n -----> There are {len(bios)} relevant bios for {keyword}')
 
     # Construct a vocabulary
     print(f'Building a vocabulary')
@@ -257,9 +265,10 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     lambda_I = lambda_value * np.identity(len(vocabulary))
 
     # Define the unique file identifier
+    # file_path_identifier = "_sampled" if "sampled" in file_path else "" and isinstance(file_path, str)
     file_identifier = f'{keyword}_' \
                       f'{second_keyword + "_" if second_keyword else ""}' \
-                      f'{"_sampled" if "sampled" in file_path else ""}' \
+                      f'{"_sampled" if (isinstance(file_path, str) and "sampled" in file_path) else ""}' \
                       f'{minimum_appearances_prevalence}{"prevalence" if is_prevalence else "appearances"}_' \
                       f'{"_fiftyfifty" if fifty_fifty else ""}' \
                       f'{lambda_value}lambda' \
@@ -348,7 +357,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'nsfw'
+    keyword = 'porn'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword

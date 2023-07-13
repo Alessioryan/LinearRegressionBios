@@ -137,9 +137,11 @@ def plot_top_and_bottom_weights(file_identifier, degree_fit):
         plt.savefig(f'{base_directory}/{title}_{degree_fit}')
         plt.clf()
 
+    return (top_10['Token'], bottom_10['Token'])
+
 
 # Plots the words individually
-def plot_individually(file_identifier, degree_fit, words):
+def plot_individually(file_identifier, degree_fit, words, title):
 
     # Get the dataframe
     base_directory = f"Multiyear/{file_identifier}"
@@ -158,8 +160,11 @@ def plot_individually(file_identifier, degree_fit, words):
 
     # Extract columns for x-axis and y-axis
     for word in words:
+        print(f'The word is {word}')
         row = filtered_df.loc[filtered_df['Token'] == word]
         weights = row[year_columns]
+        print(f"Xs are {years}")
+        print(f"Ys are {weights}")
         plt.scatter(years, weights, label=word)
         plt.plot(years, weights.iloc[0], color='black')
 
@@ -170,32 +175,34 @@ def plot_individually(file_identifier, degree_fit, words):
     plt.title('Weights for Selected Tokens')
 
     # Show
-    plt.show()
+    plt.savefig(os.path.join(base_directory, title) )
 
 
 # I put everything in here because it's not worth it to make a new method
 if __name__ == '__main__':
-    keyword = 'porn'
+    keyword = 'nsfw'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
-    ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
-    second_keyword = None
+    ones_accuracy = False  # If ones_accuracy, there shouldn't be a second keyword
+    second_keyword = 'porn'
     lambda_value = 1e-05
     minimum_appearances_prevalence = 3  # Should always be prevalence, not minimum appearances
-    default_amount = 0.02
-    max_training_size = 200000
+    default_amount = None
+    max_training_size = -1
 
     # The actual analysis
-    # run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size)
+    run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value, minimum_appearances_prevalence, default_amount, max_training_size)
 
-    # Process the data
-    file_identifier = "nsfw_porn_1prevalence_1e-05lambda_augment"
-    combine_multiyear_weights(file_identifier, start_year=-1, normalize=True)
-
-    # Analyze the data
-    degree_fit = 1
-    analyze_multiyear_weights(file_identifier, degree_fit)
-
-    # Plot the top weights
-    plot_top_and_bottom_weights(file_identifier, degree_fit)
-    # plot_individually(file_identifier, degree_fit, words=[])
+    # # Process the data
+    # file_identifier = "porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000"
+    # combine_multiyear_weights(file_identifier, start_year=2016, normalize=True)
+    #
+    # # Analyze the data
+    # degree_fit = 1
+    # analyze_multiyear_weights(file_identifier, degree_fit)
+    #
+    # # Plot the top weights
+    # top_10, bottom_10 = plot_top_and_bottom_weights(file_identifier, degree_fit)
+    # title = 'individual_bottom_3'
+    # print(bottom_10)
+    # plot_individually(file_identifier, degree_fit, words=bottom_10[-3:], title=title)
