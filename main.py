@@ -123,7 +123,7 @@ def find_accuracy(ones_accuracy, preds, bios, Y):
 
 # Returns a tuple (test_accuracy, train_accuracy)
 def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, second_keyword, lambda_value,
-         minimum_appearances_prevalence, multiyear=False, save_results=True, default_amount=None,
+         minimum_appearances_prevalence, multiyear=False, save_results="all", default_amount=None,
          max_training_size=-1, prefix_file_path=""):
 
     # TODO fix this later
@@ -142,6 +142,8 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     # Default amount must between 0 and 1
     if default_amount is not None:
         assert not ( (default_amount > 1) or (default_amount < 0) )
+    # Save_results must be a valid string
+    assert save_results == "none" or save_results == "all" or save_results == "essential"
 
     # If you pass in a string, behave as normal:
     if isinstance(file_path, str):
@@ -176,7 +178,6 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
     # Filter based on default amount but not max training size
     if default_amount is not None and (max_training_size == -1 and len(bios) > max_training_size):
-        print(f'Filtering bios to get to default amount for {keyword}')
         # If there are fewer bios with the keyword than there should be to get to the default amount
         if len(bios_with_keyword) / len(bios) < default_amount:
             total_required_bios = int(len(bios_with_keyword) / default_amount)
@@ -241,7 +242,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
             train_bios_without_keyword, test_bios_without_keyword = train_test_split(sampled_bios_without_keyword,
                                                                                      test_size=0.1, random_state=42)
         else:
-            raise Exception(f"There are not enough bios without the keyword for the parameters you set. There are {len(bios_without_keyword)} bios with the keyword. Your parameters require {int((1 - default_amount) * max_training_size)} bios with the keyword")
+            raise Exception(f"There are not enough bios without the keyword for the parameters you set. There are {len(bios_without_keyword)} bios without the keyword. Your parameters require {int((1 - default_amount) * max_training_size)} bios without the keyword")
         train_bios = pd.concat([train_bios_with_keyword, train_bios_without_keyword])
         test_bios = pd.concat([test_bios_with_keyword, test_bios_without_keyword])
         # Concatenate the shuffled dataframe
@@ -331,7 +332,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     # Calculate W
     print('\nCalculating W...')
     W = np.linalg.solve(np.matmul(X.T, X) + lambda_I, np.matmul(X.T, Y) )
-    if save_results and not multiyear:
+    if save_results == 'all' and not multiyear:
         np.savetxt(f'Weights/{file_identifier}', W, delimiter=',', fmt='%f')
 
     # Evaluate the accuracy of W on the test and train sets
@@ -345,14 +346,15 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
         save_directory = "Multiyear"
     else:
         save_directory = "Results"
-    if save_results:
+    if save_results != "none":
         os.makedirs(f'{save_directory}/{file_identifier}', exist_ok=True)
-        np.savetxt(f'{save_directory}/{file_identifier}/W', W, delimiter=',', fmt='%f')
-        np.savetxt(f'{save_directory}/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
-        np.savetxt(f'{save_directory}/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
-        token_lookup_file_path = f'{save_directory}/{file_identifier}/token_lookup'
-        with open(token_lookup_file_path, 'w') as file:
-            json.dump(token_lookup, file)
+        if save_results == "all":
+            np.savetxt(f'{save_directory}/{file_identifier}/W', W, delimiter=',', fmt='%f')
+            np.savetxt(f'{save_directory}/{file_identifier}/Y', Y, delimiter=',', fmt='%d')
+            np.savetxt(f'{save_directory}/{file_identifier}/preds', preds_train, delimiter=',', fmt='%d')
+            token_lookup_file_path = f'{save_directory}/{file_identifier}/token_lookup'
+            with open(token_lookup_file_path, 'w') as file:
+                json.dump(token_lookup, file)
     # Finds the training accuracy
     train_accuracy = find_accuracy(ones_accuracy, preds_train, train_bios, Y)
     train_accuracy_data = f'The train accuracy is {train_accuracy}\n'
@@ -369,33 +371,40 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
     print(test_accuracy_data)
 
     # Save the predictions and the true values
-    if save_results:
-        Y_preds_raw_bios = pd.DataFrame({
-            'Y': Y,
-            'preds_train': preds_train,
-            'raw_scores': raw_scores,
-            'bios': train_bios
-        })
-        Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/Y_and_preds')
+    if save_results != "none":
+        if save_results == "all":
+            Y_preds_raw_bios = pd.DataFrame({
+                'Y': Y,
+                'preds_train': preds_train,
+                'raw_scores': raw_scores,
+                'bios': train_bios
+            })
+            Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/Y_and_preds')
 
-        # Save the non-zero ones separately
-        nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
-        nonzero_Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/nonzero_Y_and_preds')
+            # Save the non-zero ones separately
+            nonzero_Y_preds_raw_bios = Y_preds_raw_bios[(Y_preds_raw_bios['Y'] + Y_preds_raw_bios['preds_train']).values != 0.0]
+            nonzero_Y_preds_raw_bios.to_csv(f'{save_directory}/{file_identifier}/nonzero_Y_and_preds')
 
         # Save other relevant data
         threshold_data = f'The threshold for being selected is a score of {threshold}'
-        relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data]
+        token_data = f'The keyword is {keyword}' + (f'the second keyword is {second_keyword}' if second_keyword is None else '')
+        relevant_data = [train_accuracy_data, test_accuracy_data, threshold_data, token_data]
         with open(f'{save_directory}/{file_identifier}/relevant_data', "w") as file:
             file.writelines("\n".join(relevant_data))
         with open(f'{save_directory}/{file_identifier}/relevant_data_json', "w") as file:
-            json.dump([train_accuracy, test_accuracy, threshold], file)
+            keywords = [keyword]
+            if second_keyword:
+                keywords.append(second_keyword)
+            json.dump([train_accuracy, test_accuracy, threshold, keywords], file)
 
-        # Save the weights with their definitions
+        # Get the weights with the tokens
         weights_with_tokens = pd.DataFrame({
             'Weights': W,
             'Token': token_lookup.values()
         })
-        weights_with_tokens.to_csv(f'{save_directory}/{file_identifier}/weights_with_tokens', index=False)
+        if save_results == "all":
+            # Save the weights with their definitions
+            weights_with_tokens.to_csv(f'{save_directory}/{file_identifier}/weights_with_tokens', index=False)
 
         # Sort it
         sorted_weights_with_tokens = weights_with_tokens.sort_values(by='Weights', ascending=False)
@@ -406,7 +415,7 @@ def main(file_path, keyword, augment_predictions, fifty_fifty, ones_accuracy, se
 
 
 if __name__ == '__main__':
-    keyword = 'porn'
+    keyword = 'tiktok'
     augment_predictions = True
     fifty_fifty = False  # if fifty_fifty, it shouldn't be one's accuracy
     ones_accuracy = True  # If ones_accuracy, there shouldn't be a second keyword
@@ -426,7 +435,7 @@ if __name__ == '__main__':
          lambda_value=lambda_value,
          minimum_appearances_prevalence=minimum_appearances_prevalence,
          multiyear=multiyear,
-         save_results=False,
+         save_results="essential",
          default_amount=default_amount,
          max_training_size=max_training_size,
          prefix_file_path="")

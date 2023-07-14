@@ -68,26 +68,29 @@ def execute_main(token, year, lambda_value, minimum_appearances_prevalence, defa
         # There definitely should be a JSON file called relevant_data_json
         # If there isn't, throw an error I'm not going to try to catch it
         token_file_path = os.path.join(directory_path, 'relevant_data_json')
-        with open(token_file_path, 'r') as file:
-            token_data = json.load(file)
-        accuracies.append((token, (token_data[1], token_data[0])))
-    else:
-        try:
-            accuracies.append((token, main.main(file_path,
-                              keyword=token,
-                              augment_predictions=True,
-                              fifty_fifty=False,
-                              ones_accuracy=True,
-                              second_keyword=None,
-                              lambda_value=lambda_value,
-                              minimum_appearances_prevalence=minimum_appearances_prevalence,
-                              multiyear=False,
-                              save_results=True,
-                              default_amount=default_amount,
-                              max_training_size=max_training_size,
-                              prefix_file_path=file_prefix) ) )
-        except ValueError:
-            accuracies.append((token, (-1, -1)))
+        if os.path.isfile(token_file_path):
+            with open(token_file_path, 'r') as file:
+                token_data = json.load(file)
+            accuracies.append((token, (token_data[1], token_data[0]) ) )
+            return
+
+    # If the relevant_data_json file does not in fact exist, then we just calculate it
+    try:
+        accuracies.append((token, main.main(file_path,
+                          keyword=token,
+                          augment_predictions=True,
+                          fifty_fifty=False,
+                          ones_accuracy=True,
+                          second_keyword=None,
+                          lambda_value=lambda_value,
+                          minimum_appearances_prevalence=minimum_appearances_prevalence,
+                          multiyear=False,
+                          save_results="all",
+                          default_amount=default_amount,
+                          max_training_size=max_training_size,
+                          prefix_file_path=file_prefix) ) )
+    except:
+        accuracies.append((token, (-1, -1) ) )
 
 
 # Main code to run
@@ -100,7 +103,7 @@ if __name__ == '__main__':
     year = 2022
 
     # Find words with similar prevalences given a year
-    top_tokens = 8
+    top_tokens = 2032
     leeway = 0  # Default 0
     max_tokens = -1  # Default -1
     similar_prevalence_tokens = find_words_with_similar_prevalence(keyword, year, leeway=leeway, max_tokens=max_tokens, top_tokens=top_tokens)
@@ -186,7 +189,7 @@ if __name__ == '__main__':
                                                  lambda_value=lambda_value,
                                                  minimum_appearances_prevalence=minimum_appearances_prevalence,
                                                  multiyear=False,
-                                                 save_results=True,
+                                                 save_results="all",
                                                  default_amount=default_amount,
                                                  max_training_size=max_training_size,
                                                  prefix_file_path=file_prefix ) ) )

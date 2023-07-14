@@ -48,7 +48,7 @@ def hyperparameter_tune(lower_lambda, upper_lambda, steps_lambda,
                                                            second_keyword=second_keyword,
                                                            lambda_value=lambda_value,
                                                            minimum_appearances_prevalence=appears_value,
-                                                           save_results=False,
+                                                           save_results="none",
                                                            default_amount=default_value) ) )
                     print(test_train_accuracies[-1])
 

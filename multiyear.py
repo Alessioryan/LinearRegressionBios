@@ -101,7 +101,7 @@ def run_multiyear_analysis(keyword, augment_predictions, fifty_fifty, ones_accur
                   lambda_value=lambda_value,
                   minimum_appearances_prevalence=minimum_appearances_prevalence,
                   multiyear=True,  # For this file at least
-                  save_results=True,
+                  save_results="all",
                   default_amount=default_amount,
                   max_training_size=max_training_size)
 

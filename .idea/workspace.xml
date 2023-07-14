@@ -4,143 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Add parallelize option to predictability.py!">
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/All_Tokens/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/individual_bottom_10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/individual_bottom_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/individual_top_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2012/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2013/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2014/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2015/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2016/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2017/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2018/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2019/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2020/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2021/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/nsfw_porn_3prevalence_1e-05lambda_augment/2022/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Bottom_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Top_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/combined_weights_nonNaN_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/individual_bottom_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/individual_top_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sloped_combined_weights_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Predictability/predictability_plotting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Predictability/top5_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/information_string" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Predictability/top5_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/results" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Predictability/top5_2022year_1e-05lambda_3minprevalence_0_02defaultamount_200000maxtrainingsize/unhandled_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Results/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/and_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Weights/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+    <list default="true" id="f8ff84fe-ecb5-4a4d-8e99-158b7f7f382b" name="Changes" comment="Fix file naming system for backslack">
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/All_Tokens/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/W" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/Y" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/preds" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/token_lookup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/tiktok_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/tiktok_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/relevant_data_json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/tiktok_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/sorted_weights_with_tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/-_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/best_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Weights/of_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tokens_given_min_prevalence.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/Bottom_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/Bottom_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/Top_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/Top_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/combined_weights" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/combined_weights" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/combined_weights_nonNaN_1" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/combined_weights_nonNaN_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/sloped_combined_weights_1" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/nsfw_3prevalence_1e-05lambda_augment_onesaccuracy/sloped_combined_weights_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/combined_weights" beforeDir="false" afterPath="$PROJECT_DIR$/Multiyear/porn_3prevalence_1e-05lambda_augment_onesaccuracy_maxtrainingsize200000/combined_weights" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hyperparameter_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperparameter_testing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/multiyear.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiyear.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/predictability.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictability.py" afterDir="false" />
@@ -185,7 +83,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.predictability">
+  <component name="RunManager" selected="Python.tokens_given_min_prevalence">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LinearRegressionBios" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -220,27 +118,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multiyear.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="plot_test_train_accuracy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="LinearRegressionBios" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hyperparameter tunings" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hyperparameter tunings/plot_test_train_accuracy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -291,13 +168,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="tokens_given_min_prevalence" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LinearRegressionBios" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tokens_given_min_prevalence.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tokens_given_min_prevalence" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.predictability" />
         <item itemvalue="Python.predictability_plotting" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.multiyear" />
-        <item itemvalue="Python.plot_test_train_accuracy" />
       </list>
     </recent_temporary>
   </component>
@@ -502,7 +400,35 @@
       <option name="project" value="LOCAL" />
       <updated>1689053820280</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Working with parallel code again, now it only loads the csv file once">
+      <created>1689274248238</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1689274248238</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Working with parallel code again, now it only loads the csv file once">
+      <created>1689274466430</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1689274466430</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Fix file naming system for backslack">
+      <created>1689282191194</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1689282191194</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Fix file naming system for backslack">
+      <created>1689289724620</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1689289724620</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,8 +444,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Upload the files again - Had to remake the repo since Git was acting up" />
-    <MESSAGE value="File saving fixes" />
     <MESSAGE value="Add nsfw, add features to main.py and evaluation.py" />
     <MESSAGE value="Add augmented option" />
     <MESSAGE value="Removed all results since they might have older versions of the code" />
@@ -543,6 +467,8 @@
     <MESSAGE value="Add predictability.py" />
     <MESSAGE value="Last commit that works pre-parallelized" />
     <MESSAGE value="Add parallelize option to predictability.py!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add parallelize option to predictability.py!" />
+    <MESSAGE value="Working with parallel code again, now it only loads the csv file once" />
+    <MESSAGE value="Fix file naming system for backslack" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix file naming system for backslack" />
   </component>
 </project>
